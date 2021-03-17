@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import { getLocalDate, getLocalTime } from "../utils/datetime";
+
+
+
 const Accident = props => (
   <tr>
     <td>
-        {props.accident.datetime.match(/\d+-\d+-\d+/)}
+        {getLocalDate(props.accident.datetime)}
         <br/>
-        {props.accident.datetime.match(/\d\d:\d\d/)}
+        {getLocalTime(props.accident.datetime)}
     </td>
     <td>
         {props.accident.driverAge},
@@ -19,7 +23,7 @@ const Accident = props => (
         <br/>
         [{props.accident.vehicleYOM}]
     </td>
-    <td>{props.accident.licenseIssueDate.match(/\d+-\d+-\d+/)}</td>
+    <td>{getLocalDate(props.accident.licenseIssueDate)}</td>
     <td>{props.accident.drivingSide}</td>
     <td>{props.accident.severity}</td>
     <td>{props.accident.reason}</td>

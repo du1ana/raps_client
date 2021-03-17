@@ -82,7 +82,7 @@ export default class AddETeam extends Component {
     <div>
       <h3>Create New Emergency Team</h3>
       <form onSubmit={this.onSubmit}>
-        <div className="form-group">
+        <div className="form-group col-sm-3">
           <label>Username: </label>
           <input  type="text"
               required
@@ -92,7 +92,7 @@ export default class AddETeam extends Component {
               minlength='4'
               />
         </div>
-        <div className="form-group">
+        <div className="form-group col-sm-3">
             <label>Name: </label>
             <input  type="text"
                 required
@@ -101,7 +101,7 @@ export default class AddETeam extends Component {
                 onChange={this.onChangeName}
                 />
         </div>
-        <div className="form-group">
+        <div className="form-group col-sm-3">
           <label>Password: </label>
           <input  type="password"
               required
@@ -111,7 +111,7 @@ export default class AddETeam extends Component {
               minlength='4'
               />
         </div>
-        <div className="form-group">
+        <div className="form-group col-sm-3">
         <label>Contact Number </label>
         <input
             type="text"
@@ -121,7 +121,7 @@ export default class AddETeam extends Component {
             />
         </div>
 
-        <div className="form-group">
+        <div className="form-group col-sm-3">
           <input type="submit" value="Create Team" className="btn btn-primary" />
         </div>
       </form>

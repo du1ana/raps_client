@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import { getLocalDate, getLocalTime } from "../utils/datetime";
+
 const Event = props => (
   <tr>
     <td>
-        {props.event.datetime.match(/\d+-\d+-\d+/)}
-        <br/>
-        {props.event.datetime.match(/\d\d:\d\d/)}
+    {getLocalDate(props.event.datetime)}
+    <br/>
+    {getLocalTime(props.event.datetime)}
     </td>
     <td>{props.event.type}</td>
     <td>{props.event.drivingSide}</td>

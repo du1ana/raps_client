@@ -1,0 +1,120 @@
+.background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0em;
+  left: 0em;
+  top: 0em;
+  background: url(../../Assets/wave.svg) no-repeat;
+  background-size: cover;
+  background-color: #0099ff;
+}
+
+.form-button {
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  width: 80%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 25px;
+  box-shadow: 0 0 20px #0099ff;
+}
+
+.sign-img {
+  width: 100%;
+  margin: 50px auto 0;
+}
+
+h3 {
+  color: #2f2e41;
+}
+h6 {
+  color: #a0616a;
+}
+
+.formside {
+  width: 100%;
+  height: 100%;
+  border-left: 3px solid #0099ff;
+  padding: 10px;
+}
+
+.form-groupone {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #0099ff;
+}
+
+.forminput {
+  outline: none;
+  margin-left: 10px;
+  border-style: none;
+  width: 100%;
+}
+
+.icons {
+  margin-left: 10px;
+  color: #2f2e41;
+}
+
+.btn-warning {
+  border-radius: 50px !important;
+  background-color: #2f2e41 !important;
+  border: none;
+  color: white;
+}
+
+.btn .signin{
+  color: white !important;
+}
+
+.welcome {
+  margin: 50px;
+  margin-bottom: 20px;
+}
+.form-inside {
+  margin: auto;
+  width: 100%;
+  padding: 30px;
+}
+
+@media only screen and (max-width: 513px) {
+  .formside {
+    margin: auto;
+    margin-top: 20px;
+    border-left: none;
+    border-top: 2px solid #0099ff;
+  }
+
+  .form-groupone {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 2px;
+    border: 1px solid #0099ff;
+    overflow: hidden;
+  }
+
+  .icons {
+    margin-left: 2px;
+    color: #2f2e41;
+  }
+
+  .welcome {
+    margin: auto;
+  }
+  .form-inside {
+    margin: auto;
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+form {
+  margin: auto;
+}
+
+.btn-warning:active {
+  outline: none !important;
+}

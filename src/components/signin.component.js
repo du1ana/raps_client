@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
-import logo from "../icon.png";
+import "./css/signin.component.css";
+import { Container, Row, Col } from "react-bootstrap";
+import SVGsign from "../Assets/signin2.svg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 
 import { getFromStorage, setInStorage } from "../utils/storage";
 
@@ -67,10 +71,10 @@ export default class Signin extends Component {
 
     if (isLoading) {
       return (
-        <div className="d-flex justify-content-center ">
-          <div className="spinner-border" role="status">
-            <span className="sr-only">Loading...</span>
-          </div>
+        <div className="loading">
+          <svg>
+            <circle r="40" cx="150" cy="75" stroke="#999" stroke-width="10px" fill="none"/>
+          </svg>
         </div>
       );
     }
@@ -78,50 +82,85 @@ export default class Signin extends Component {
     if (!token) {
       return (
         <div className="content">
-          <nav className="navbar navbar-dark bg-dark">
-            <span className="navbar-brand mb-0 h1">
-              <img
-                src={logo}
-                width="30"
-                height="30"
-                className="d-inline-block align-top"
-              />{" "}
-              Road Accident Prediction System
-            </span>
-          </nav>
-          <br />
-
-          <form className="col-sm-4 col-12 text-center border border-secondary p-5 ">
-            <div className="form-group">
-              <input
-                type="text"
-                className="form-control mb-4"
-                value={signInUsername}
-                onChange={this.onTextboxChangeUsername}
-                placeholder="Username"
-              ></input>
+          <div className="background">
+            <div className="form-button">
+              <Container>
+                <Row>
+                  <Col md-12 sm-12>
+                    <Row>
+                      <h3>Road Accident Prevention System</h3>
+                    </Row>
+                    <img className="sign-img" src={SVGsign} height="300"/>
+                  </Col>
+                  <Col md-12 sm-12>
+                    <div className="formside">
+                      <div className="welcome">
+                        <h4>Welcome Back!</h4>
+                        <h6>Login to continue</h6>
+                      </div>
+                      <div className="form-inside">
+                        <form>
+                          <div className="form-groupone">
+                            <tr>
+                              <td>
+                                <FontAwesomeIcon
+                                  className="icons"
+                                  icon={faUser}
+                                />
+                              </td>
+                              <td>
+                                <input
+                                  type="text"
+                                  className="forminput"
+                                  value={signInUsername}
+                                  onChange={this.onTextboxChangeUsername}
+                                  placeholder="Username"
+                                ></input>
+                              </td>
+                            </tr>
+                          </div>
+                          <div className="form-groupone">
+                            <tr>
+                              <td>
+                                <FontAwesomeIcon
+                                  className="icons"
+                                  icon={faLock}
+                                />
+                              </td>
+                              <td>
+                                <input
+                                  type="password"
+                                  className="forminput"
+                                  value={signInPassword}
+                                  onChange={this.onTextboxChangePassword}
+                                  placeholder="Password"
+                                />
+                              </td>
+                            </tr>
+                          </div>
+                          <div className="signInError">
+                            <p className="text-danger">{signInError}</p>
+                          </div>
+                        </form>
+                        <button
+                          className="btn btn-warning btn-block signin"
+                          disabled={!activateSubmit}
+                          onClick={this.onSignin}
+                        >
+                          Sign in
+                        </button>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
             </div>
-            <div className="form-group">
-              <input
-                type="password"
-                className="form-control mb-4"
-                value={signInPassword}
-                onChange={this.onTextboxChangePassword}
-                placeholder="Password"
-              ></input>
-            </div>
-            <div className="signInError">
-              <p className="text-danger">{signInError}</p>
-            </div>
-          </form>
-          <button
-            className="btn btn-warning
-            btn-rounded btn-block my-4 waves-effect z-depth-0 col-sm-4 col-12"
-            disabled={!activateSubmit}
-            onClick={this.onSignin}
-          >
-            Sign in
-          </button>
+          </div>
         </div>
       );
     }
@@ -132,7 +171,7 @@ export default class Signin extends Component {
           <div className="container">
             <h1 className="display-4">Successfully Signed in!</h1>
             <p class="lead">
-              <a class="btn btn-warning btn-lg" href="#" role="button">
+              <a class="btn btn-warning btn-lg signin" href="#" role="button">
                 <Link to="/">Load homepage</Link>
               </a>
             </p>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import { getLocalDate, getLocalTime } from "../utils/datetime";
+import { getLocalDate, getLocalTime, getSuburbName } from "../utils/displayformat";
 
 const Event = props => (
   <tr>
@@ -11,11 +11,10 @@ const Event = props => (
     {getLocalTime(props.event.datetime)}
     </td>
     <td>{props.event.type}</td>
-    <td>{props.event.drivingSide}</td>
+    <td>{props.event.drivingSide?"matara":"colombo"}</td>
     <td>{props.event.severity}</td>
     <td>{props.event.kmPost}</td>
-    <td>{props.event.suburb}</td>
-    <td>{props.event.status}</td>
+    <td>{getSuburbName(props.event.suburb)}</td>
     <td>
       <button className="btn btn-sm btn-danger" onClick={() => { props.deleteEvent(props.event.id) }}>Delete</button>
     </td>
@@ -73,7 +72,6 @@ export default class EventList extends Component {
               <th>Severity</th>
               <th>KM Post</th>
               <th>Suburb</th>
-              <th>Status</th>
               <th></th>
             </tr>
           </thead>

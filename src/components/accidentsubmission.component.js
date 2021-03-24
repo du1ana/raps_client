@@ -15,8 +15,11 @@ export default class AccidentSubmission extends Component {
     this.onChangeDriverGender = this.onChangeDriverGender.bind(this);
 
     this.onChangeWeather = this.onChangeWeather.bind(this);
+    this.onChangeRoadSurface = this.onChangeRoadSurface.bind(this);
+
     this.onChangeVehicleType = this.onChangeVehicleType.bind(this);
     this.onChangeVehicleYOM = this.onChangeVehicleYOM.bind(this);
+    this.onChangeVehicleCondition = this.onChangeVehicleCondition.bind(this);
 
 
     this.onChangeLicenseIssueDate = this.onChangeLicenseIssueDate.bind(this);
@@ -36,19 +39,20 @@ export default class AccidentSubmission extends Component {
     this.state = {
       accidentDate:d,
       accidentTime:d.toString().match(/(\d\d:\d\d)/)[0],
-      driverAge: 0,
-      driverGender: 'male',
-      weather: 'clear',
-      vehicleType: 'car',
+      driverAge: 17,
+      driverGender: false,
+      weather: false,
+      roadSurface: false,
+      vehicleType: 0,
       vehicleYOM: d.getFullYear(),
       licenseIssueDate:d,
-      drivingSide: 'colombo',
-      severity: 'propertydamage',
-      reason: 'speed',
+      drivingSide: false,
+      severity: 0,
+      reason: 0,
       kmPost: 0,
-      suburb: 'kottawa',
+      suburb: 0,
       operatedSpeed: 0,
-
+      vehicle_condition: false,
       token:this.props.token,
       res:''
     }
@@ -83,21 +87,35 @@ export default class AccidentSubmission extends Component {
   }
   onChangeDriverGender(e) {
     this.setState({
-      driverGender: e.target.value,
+      driverGender: (e.target.value==="male"?false:true),
       res:''
     })
   }
 
   onChangeWeather(e) {
     this.setState({
-      weather: e.target.value,
+      weather: (e.target.value==="clear"?false:true),
+      res:''
+    })
+  }
+
+  onChangeRoadSurface(e) {
+    this.setState({
+      roadSurface: (e.target.value==="dry"?false:true),
+      res:''
+    })
+  }
+
+  onChangeVehicleCondition(e) {
+    this.setState({
+      vehicle_condition: (e.target.value==="good"?false:true),
       res:''
     })
   }
 
   onChangeVehicleType(e) {
     this.setState({
-      vehicleType: e.target.value,
+      vehicleType: parseInt(e.target.value),
       res:''
     })
   }
@@ -111,19 +129,19 @@ export default class AccidentSubmission extends Component {
 
   onChangeDrivingSide(e) {
     this.setState({
-      drivingSide: e.target.value,
+      drivingSide: (e.target.value==="colombo"?false:true),
       res:''
     })
   }
   onChangeSeverity(e) {
     this.setState({
-      severity: e.target.value,
+      severity: parseInt(e.target.value),
       res:''
     })
   }
   onChangeReason(e) {
     this.setState({
-      reason: e.target.value,
+      reason: parseInt(e.target.value),
       res:''
     })
   }
@@ -135,42 +153,44 @@ export default class AccidentSubmission extends Component {
   }
   onChangeSuburb(e) {
     this.setState({
-      suburb: e.target.value,
+      suburb: parseInt(e.target.value),
       res:''
     })
-    switch(e.target.value){
-      case 'kottawa':
+    switch(parseInt(e.target.value)){
+      case 0:
       this.setState({kmPost:0})
       break;
-      case 'kahathuduwa':
+      case 1:
       this.setState({kmPost:5.9})
       break;
-      case 'gelanigama':
+      case 2:
       this.setState({kmPost:13.7})
       break;
-      case 'dodangoda':
+      case 3:
       this.setState({kmPost:34.8})
       break;
-      case 'welipanna':
+      case 4:
       this.setState({kmPost:46})
       break;
-      case 'kurundugahahetekma':
+      case 5:
       this.setState({kmPost:67.6})
       break;
-      case 'baddegama':
+      case 6:
       this.setState({kmPost:79.8})
       break;
-      case 'pinnaduwa':
+      case 7:
       this.setState({kmPost:95.3})
       break;
-      case 'imaduwa':
+      case 8:
       this.setState({kmPost:108})
       break;
-      case 'kokmaduwa':
+      case 9:
       this.setState({kmPost:116.5})
       break;
-      case 'godagama':
+      case 10:
       this.setState({kmPost:127})
+      break;
+      default:
       break;
     }
   }
@@ -191,8 +211,10 @@ export default class AccidentSubmission extends Component {
       driverAge: this.state.driverAge,
       driverGender: this.state.driverGender,
       weather: this.state.weather,
+      roadSurface: this.state.roadSurface,
       vehicleType: this.state.vehicleType,
       vehicleYOM: this.state.vehicleYOM,
+      vehicle_condition: this.state.vehicle_condition,
       licenseIssueDate: this.state.licenseIssueDate,
       drivingSide: this.state.drivingSide,
       severity: this.state.severity,
@@ -209,26 +231,27 @@ export default class AccidentSubmission extends Component {
 
     axios.post('http://localhost:5000/accident/submit', accident)
       .then(res=>{
+        console.log("submit res:");
+        console.log(res);
         document.getElementById('accident-report-from').reset();
         this.setState({
           res: res.data.message,
           accidentDate:d,
           accidentTime:d.toString().match(/(\d\d:\d\d)/)[0],
-          driverAge: 0,
-          driverGender: 'male',
-          weather: 'clear',
-          vehicleType: 'car',
+          driverAge: 17,
+          driverGender: false,
+          weather: false,
+          roadSurface: false,
+          vehicleType: 0,
           vehicleYOM: d.getFullYear(),
-          licenseIssueDay: d.getDay(),
-          licenseIssueMonth: d.getMonth(),
-          licenseIssueYear: d.getYear(),
-          licenseIssueDate: d,
-          drivingSide: 'colombo',
-          severity: 'propertydamage',
-          reason:'speed',
+          licenseIssueDate:d,
+          drivingSide: false,
+          severity: 0,
+          reason: 0,
           kmPost: 0,
-          suburb: 'kottawa',
-          operatedSpeed: 0
+          suburb: 0,
+          operatedSpeed: 0,
+          vehicle_condition: false,
         })
       })
 
@@ -276,8 +299,8 @@ export default class AccidentSubmission extends Component {
               className="form-control"
               value={this.state.driverAge}
               onChange={this.onChangeDriverAge}
-              min='0'
-              max='99'
+              min='17'
+              max='76'
               /></div>
           </div>
           <div className="form-group row">
@@ -299,11 +322,20 @@ export default class AccidentSubmission extends Component {
               </div>
           </div>
           <div className="form-group row">
+          <div className="col-sm-3"><label>Road Surface </label></div>
+          <div className="col-sm-3">
+              <select className="form-control" onChange={this.onChangeRoadSurface}>
+                  <option value="dry">Dry</option>
+                  <option value="wet">Wet</option>
+              </select>
+              </div>
+          </div>
+          <div className="form-group row">
           <div className="col-sm-3"><label>Vehicle Type </label></div>
           <div className="col-sm-3"><select className="form-control" onChange={this.onChangeVehicleType}>
-              <option value="car">Car</option>
-              <option value="dualPurpose">Dual Purpose</option>
-              <option value="hv">HV</option>
+              <option value="0">Car</option>
+              <option value="1">HV</option>
+              <option value="2">Dual Purpose</option>
               </select>
           </div>
           </div>
@@ -314,6 +346,14 @@ export default class AccidentSubmission extends Component {
               value={this.state.vehicleYOM}
               onChange={this.onChangeVehicleYOM}
               /></div>
+          </div>
+          <div className="form-group row">
+          <div className="col-sm-3"><label>Vehicle Condition </label></div>
+          <div className="col-sm-3"><select className="form-control" onChange={this.onChangeVehicleCondition}>
+              <option value="good">Good</option>
+              <option value="bad">Bad</option>
+              </select>
+          </div>
           </div>
           <div className="form-group row">
           <div className="col-sm-3"><label>License Issue Date </label></div>
@@ -334,39 +374,37 @@ export default class AccidentSubmission extends Component {
           <div className="form-group row">
           <div className="col-sm-3"><label>Severity </label></div>
           <div className="col-sm-3"><select className="form-control" onChange={this.onChangeSeverity}>
-              <option value="propertydamage">Property Damage</option>
-              <option value="injury">Injury</option>
-              <option value="fatal">Fatal</option>
+              <option value="0">Property Damage</option>
+              <option value="1">Injury</option>
+              <option value="2">Fatality</option>
               </select></div>
           </div>
           <div className="form-group row">
           <div className="col-sm-3"><label>Reason </label></div>
           <div className="col-sm-3"><select className="form-control" onChange={this.onChangeReason}>
-              <option value="speed">Speeding</option>
-              <option value="sleep">Sleep</option>
-              <option value="slipping">Slipping</option>
-              <option value="vehicleIssue">Vehicle issue</option>
-              <option value="tyreBlast">Tyre blast</option>
-              <option value="tyrePatch">Tyre patch</option>
-              <option value="animal">Animal Crossing</option>
-              <option value="other">Other</option>
+              <option value="0">Animal Crossing</option>
+              <option value="1">Vehicle Issue</option>
+              <option value="2">Speed</option>
+              <option value="3">Tailgating</option>
+              <option value="4">Sleep</option>
+              <option value="5">Slipping</option>
               </select></div>
           </div>
           <div className="form-group row">
           <div className="col-sm-3"><label>Suburb </label></div>
           <div className="col-sm-3">
           <select className="form-control" onChange={this.onChangeSuburb}>
-              <option value="kottawa">Kottawa</option>
-              <option value="kahathuduwa">Kahathuduwa</option>
-              <option value="gelanigama">Gelanigama</option>
-              <option value="dodangoda">Dodangoda</option>
-              <option value="welipanna">Welipanna</option>
-              <option value="kurundugahahetekma">Kurundugahahetekma</option>
-              <option value="baddegama">Baddegama</option>
-              <option value="pinnaduwa">Pinnaduwa</option>
-              <option value="imaduwa">Imaduwa</option>
-              <option value="kokmaduwa">Kokmaduwa</option>
-              <option value="godagama">Godagama</option>
+              <option value="0">Kottawa</option>
+              <option value="1">Kahathuduwa</option>
+              <option value="2">Gelanigama</option>
+              <option value="3">Dodangoda</option>
+              <option value="4">Welipanna</option>
+              <option value="5">Kurundugahahetekma</option>
+              <option value="6">Baddegama</option>
+              <option value="7">Pinnaduwa</option>
+              <option value="8">Imaduwa</option>
+              <option value="9">Kokmaduwa</option>
+              <option value="10">Godagama</option>
               </select></div>
           </div>
 

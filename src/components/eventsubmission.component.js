@@ -27,11 +27,11 @@ export default class EventSubmission extends Component {
     this.state = {
       eventDate:d,
       eventTime:d.toString().match(/(\d\d:\d\d)/)[0],
-      type: 'fallen tree',
-      drivingSide: 'colombo',
-      severity: 'minor',
+      type: 0,
+      drivingSide: false,
+      severity: 0,
       kmPost: 0,
-      suburb: 'kottawa',
+      suburb: 0,
       token:this.props.token,
       res:''
     }
@@ -89,37 +89,37 @@ export default class EventSubmission extends Component {
       res:''
     })
     switch(e.target.value){
-      case 'kottawa':
+      case '0':
       this.setState({kmPost:0})
       break;
-      case 'kahathuduwa':
+      case '1':
       this.setState({kmPost:5.9})
       break;
-      case 'gelanigama':
+      case '2':
       this.setState({kmPost:13.7})
       break;
-      case 'dodangoda':
+      case '3':
       this.setState({kmPost:34.8})
       break;
-      case 'welipanna':
+      case '4':
       this.setState({kmPost:46})
       break;
-      case 'kurundugahahetekma':
+      case '5':
       this.setState({kmPost:67.6})
       break;
-      case 'baddegama':
+      case '6':
       this.setState({kmPost:79.8})
       break;
-      case 'pinnaduwa':
+      case '7':
       this.setState({kmPost:95.3})
       break;
-      case 'imaduwa':
+      case '8':
       this.setState({kmPost:108})
       break;
-      case 'kokmaduwa':
+      case '9':
       this.setState({kmPost:116.5})
       break;
-      case 'godagama':
+      case '10':
       this.setState({kmPost:127})
       break;
     }
@@ -152,11 +152,11 @@ export default class EventSubmission extends Component {
           res: res.data.message,
           eventDate:d,
           eventTime:d.toString().match(/(\d\d:\d\d)/)[0],
-          type: 'fallen tree',
-          drivingSide: 'colombo',
-          severity: 'minor',
+          type: 0,
+          drivingSide: false,
+          severity: 0,
           kmPost: 0,
-          suburb: 'kottawa'
+          suburb: 0
         })
       })
 
@@ -204,10 +204,10 @@ export default class EventSubmission extends Component {
           <div className="col-sm-3"><label>Type </label></div>
           <div className="col-sm-3">
               <select className="form-control" onChange={this.onChangeType}>
-                  <option value="fallen tree">Fallen Tree</option>
-                  <option value="landslide">Landslide</option>
-                  <option value="flooding">Flooding</option>
-                  <option value="mist">Mist</option>
+                  <option value="0">Fallen Tree</option>
+                  <option value="1">Landslide</option>
+                  <option value="2">Flooding</option>
+                  <option value="3">Other</option>
               </select>
               </div>
           </div>
@@ -215,34 +215,34 @@ export default class EventSubmission extends Component {
           <div className="form-group row">
           <div className="col-sm-3"><label>Side </label></div>
           <div className="col-sm-3"><select className="form-control" onChange={this.onChangeDrivingSide}>
-              <option value="colombo">Colombo to Matara</option>
-              <option value="matara">Matara to Colombo</option>
+              <option value="false">Colombo to Matara</option>
+              <option value="true">Matara to Colombo</option>
               </select>
           </div>
           </div>
           <div className="form-group row">
           <div className="col-sm-3"><label>Severity </label></div>
           <div className="col-sm-3"><select className="form-control" onChange={this.onChangeSeverity}>
-              <option value="minor">Minor</option>
-              <option value="intermediate ">Intermediate</option>
-              <option value="major">Major</option>
+              <option value="0">Minor</option>
+              <option value="1 ">Intermediate</option>
+              <option value="2">Major</option>
               </select></div>
           </div>
           <div className="form-group row">
           <div className="col-sm-3"><label>Suburb </label></div>
           <div className="col-sm-3">
           <select className="form-control" onChange={this.onChangeSuburb}>
-              <option value="kottawa">Kottawa</option>
-              <option value="kahathuduwa">Kahathuduwa</option>
-              <option value="gelanigama">Gelanigama</option>
-              <option value="dodangoda">Dodangoda</option>
-              <option value="welipanna">Welipanna</option>
-              <option value="kurundugahahetekma">Kurundugahahetekma</option>
-              <option value="baddegama">Baddegama</option>
-              <option value="pinnaduwa">Pinnaduwa</option>
-              <option value="imaduwa">Imaduwa</option>
-              <option value="kokmaduwa">Kokmaduwa</option>
-              <option value="godagama">Godagama</option>
+              <option value="0">Kottawa</option>
+              <option value="1">Kahathuduwa</option>
+              <option value="2">Gelanigama</option>
+              <option value="3">Dodangoda</option>
+              <option value="4">Welipanna</option>
+              <option value="5">Kurundugahahetekma</option>
+              <option value="6">Baddegama</option>
+              <option value="7">Pinnaduwa</option>
+              <option value="8">Imaduwa</option>
+              <option value="9">Kokmaduwa</option>
+              <option value="10">Godagama</option>
               </select></div>
           </div>
 

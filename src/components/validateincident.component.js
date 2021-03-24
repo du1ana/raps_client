@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import { getLocalDate, getLocalTime } from "../utils/datetime";
+import { getLocalDate, getLocalTime } from "../utils/displayformat";
 
 const Incident = (props) => (
   <tr>
@@ -11,13 +11,8 @@ const Incident = (props) => (
     {getLocalTime(props.incident.datetime)}
     </td>
     <td>{props.incident.isAccident?"Accident":"Event"}</td>
-    <td>{props.incident.weather}</td>
-    <td>{props.incident.vehicleType}</td>
-    <td>{props.incident.drivingSide}</td>
-    <td>{props.incident.severity}</td>
     <td>{props.incident.kmPost}</td>
     <td>{props.incident.suburb}</td>
-    <td>{props.incident.operatedSpeed}</td>
     <td>
       <button
         className="btn btn-sm btn-danger"
@@ -88,13 +83,8 @@ export default class ValidateIncident extends Component {
             <tr>
               <th>Date/Time</th>
               <th>incidentType</th>
-              <th>weather</th>
-              <th>vehicleType</th>
-              <th>drivingSide</th>
-              <th>severity</th>
               <th>kmPost</th>
               <th>Suburb</th>
-              <th>operatedSpeed</th>
               <th>Actions</th>
             </tr>
           </thead>

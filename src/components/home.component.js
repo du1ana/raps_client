@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import logo from "../icon.png";
+import logo from "../icons/icon.png";
 
 import Navbar from "./navbar.component";
 import Content from "./content.component";
@@ -48,10 +48,10 @@ export default class Home extends Component {
   render() {
     if (this.state.loading) {
       return (
-        <div className="d-flex justify-content-center ">
-          <div className="spinner-border" role="status">
-            <span className="sr-only">Loading...</span>
-          </div>
+        <div className="loading">
+          <svg>
+            <circle r="40" cx="150" cy="75" stroke="#999" stroke-width="10px" fill="none"/>
+          </svg>
         </div>
       );
     } else {
@@ -66,6 +66,7 @@ export default class Home extends Component {
                   width="30"
                   height="30"
                   className="d-inline-block align-top"
+                  alt="RAPS logo"
                 />&nbsp;
                 Road Accident Prediction System
               </span>
@@ -76,9 +77,9 @@ export default class Home extends Component {
               <div className="container">
                 <h1 className="display-4">Sign in to continue</h1>
                 <p class="lead">
-                  <a class="btn btn-warning btn-lg" href="" role="button">
+                  <button class="btn btn-warning btn-lg">
                     <Link to="/signin">Sign in</Link>
-                  </a>
+                  </button>
                 </p>
 
               </div>

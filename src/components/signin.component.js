@@ -6,6 +6,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import SVGsign from "../Assets/signin2.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
+import { motion } from "framer-motion";
 
 import { getFromStorage, setInStorage } from "../utils/storage";
 
@@ -73,7 +74,14 @@ export default class Signin extends Component {
       return (
         <div className="loading">
           <svg>
-            <circle r="40" cx="150" cy="75" stroke="#999" stroke-width="10px" fill="none"/>
+            <circle
+              r="40"
+              cx="150"
+              cy="75"
+              stroke="#999"
+              stroke-width="10px"
+              fill="none"
+            />
           </svg>
         </div>
       );
@@ -83,17 +91,50 @@ export default class Signin extends Component {
       return (
         <div className="content">
           <div className="background">
-            <div className="form-button">
+            <motion.div
+              className="form-button"
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{
+                scale: 1,
+                opacity: 1,
+              }}
+              transition={{ duration: 0.5 }}
+            >
               <Container>
                 <Row>
                   <Col md-12 sm-12>
                     <Row>
-                      <h3>Road Accident Prevention System</h3>
+                      <motion.h3
+                        initial={{ y: -100, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{
+                          delay: 0.5,
+                          type: "spring",
+                          stiffness: 120,
+                        }}
+                      >
+                        Road Accident Prevention System
+                      </motion.h3>
                     </Row>
-                    <img className="sign-img" src={SVGsign} height="300"/>
+                    <motion.img
+                      className="sign-img"
+                      initial={{ y: 100, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{
+                        delay: 0.5,
+                        type: "spring",
+                        stiffness: 120,
+                      }}
+                      src={SVGsign}
+                    />
                   </Col>
                   <Col md-12 sm-12>
-                    <div className="formside">
+                    <motion.div
+                      className="formside"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.5, duration: 1 }}
+                    >
                       <div className="welcome">
                         <h4>Welcome Back!</h4>
                         <h6>Login to continue</h6>
@@ -142,24 +183,25 @@ export default class Signin extends Component {
                             <p className="text-danger">{signInError}</p>
                           </div>
                         </form>
-                        <button
-                          className="btn btn-warning btn-block signin"
+                        <motion.button
+                          className="btn btn-warning btn-block "
                           disabled={!activateSubmit}
                           onClick={this.onSignin}
+                          whileHover={{ scale: 1.05 }}
                         >
                           Sign in
-                        </button>
+                        </motion.button>
                         <tr>
                           <td></td>
                           <td></td>
                           <td></td>
                         </tr>
                       </div>
-                    </div>
+                    </motion.div>
                   </Col>
                 </Row>
               </Container>
-            </div>
+            </motion.div>
           </div>
         </div>
       );

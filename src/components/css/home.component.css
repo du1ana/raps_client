@@ -1,0 +1,58 @@
+.background1 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0em;
+  left: 0em;
+  top: 0em;
+  background: url(../../Assets/wave4.svg) no-repeat;
+  background-size: cover;
+  background-color: #fff;
+}
+.box-one {
+  margin: auto;
+  margin-top: 60px;
+  margin-bottom: 50px;
+  width: 80%;
+  height: 72vh;
+  background-color: white;
+  padding: 20px;
+  border-radius: 25px;
+  box-shadow: 0 0 10px #0099ff;
+}
+.welcome1 {
+  margin-top: 6vh;
+  margin-left: 4vw;
+  margin-bottom: 60px;
+}
+
+.signin-img-1 {
+  margin: auto;
+  width: 200%;
+
+  margin-top: 6vh;
+}
+
+.link:hover {
+  text-decoration-line: none;
+  color: #fff;
+}
+
+.link {
+  color: #fff;
+  text-decoration: none;
+}
+@media only screen and (max-width: 1200px) {
+  .desc {
+    display: none;
+  }
+  .signin-img-1 {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 513px) {
+  .welcome > h2 {
+    font-size: 180%;
+  }
+}

@@ -25,18 +25,21 @@ const Event = (props) => {
       <tr className="table-secondary">
         <td>
           {getLocalDate(props.edit_eventDate)}
+          <br/>
           <input
             type="date"
             value={props.edit_eventDate}
             onChange={props.onChangeEventDate}
           />
-          <br />
-          {props.edit_eventTime}
+          </td>
+          <td>
+          {props.edit_eventTime}<br/>
           <input
             type="time"
-            className="form-control"
+            className="form-control-sm"
             value={props.edit_eventTime}
             onChange={props.onChangeEventTime}
+            style={{ width: 130 }}
           />
         </td>
         <td>
@@ -80,18 +83,6 @@ const Event = (props) => {
             </option>
           </select>
         </td>
-        <td className="text-muted">
-          <input
-            type="number"
-            className="form-control"
-            value={props.edit_kmPost}
-            onChange={props.onChangeKmPost}
-            style={{ width: 80 }}
-            min="0"
-            max="127"
-            step=".1"
-          />
-        </td>
         <td>
           <select
             className="form-control"
@@ -133,6 +124,18 @@ const Event = (props) => {
             </option>
           </select>
         </td>
+        <td className="text-muted">
+          <input
+            type="number"
+            className="form-control"
+            value={props.edit_kmPost}
+            onChange={props.onChangeKmPost}
+            style={{ width: 80 }}
+            min="0"
+            max="127"
+            step=".1"
+          />
+        </td>
         <td>
           <button
             className="btn btn-sm btn-secondary"
@@ -168,7 +171,8 @@ const Event = (props) => {
       <tr>
         <td>
           {getLocalDate(props.event.datetime)}
-          <br />
+        </td>
+        <td>
           {getLocalTime(props.event.datetime)}
         </td>
         <td>
@@ -180,7 +184,7 @@ const Event = (props) => {
             ? "Flooding"
             : "Other"}
         </td>
-        <td>{props.event.drivingSide ? "matara" : "colombo"}</td>
+        <td>{props.event.drivingSide ? "Matara" : "Colombo"}</td>
         <td>
           {props.event.severity === 0
             ? "Minor"
@@ -188,8 +192,8 @@ const Event = (props) => {
             ? "Intermediate"
             : "Major"}
         </td>
-        <td>{props.event.kmPost}</td>
         <td>{getSuburbName(props.event.suburb)}</td>
+        <td>{props.event.kmPost}</td>
         <td>
           <button
             className="btn btn-sm btn-info"
@@ -483,12 +487,13 @@ export default class EventList extends Component {
         <table className="table">
           <thead className="thead-light">
             <tr>
-              <th>Date/Time</th>
+              <th>Date</th>
+              <th>Time</th>
               <th>Type</th>
               <th>Driving Side</th>
               <th>Severity</th>
-              <th>KM Post</th>
               <th>Suburb</th>
+              <th>KM Post</th>
               <th></th>
             </tr>
           </thead>

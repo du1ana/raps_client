@@ -261,9 +261,9 @@ export default class EventList extends Component {
         console.log(response.data);
       });
 
-    this.setState({
-      updateFlag: true,
-    });
+    // this.setState({
+    //   updateFlag: true,
+    // });
     this.refresh();
   }
 
@@ -432,6 +432,8 @@ export default class EventList extends Component {
         break;
     }
   }
+
+  //array = [1,2,3,4,5];
 
   eventList() {
     return this.state.eventlist.map((currentevent) => {

@@ -41,16 +41,16 @@ const Event = (props) => {
         </td>
         <td>
           <select className="form-control" onChange={props.onChangeEventType}>
-            <option selected={props.edit_eventType === 0} value="0">
+            <option selected={props.edit_type === 0} value="0">
               Fallen Tree
             </option>
-            <option selected={props.edit_eventType === 1} value="1">
+            <option selected={props.edit_type === 1} value="1">
               Landslide
             </option>
-            <option selected={props.edit_eventType === 2} value="2">
+            <option selected={props.edit_type === 2} value="2">
               Flooding
             </option>
-            <option selected={props.edit_eventType === 3} value="3">
+            <option selected={props.edit_type === 3} value="3">
               Other
             </option>
           </select>
@@ -150,7 +150,7 @@ const Event = (props) => {
                 props.event.id,
                 props.edit_eventDate,
                 props.edit_eventTime,
-                props.edit_eventType,
+                props.edit_type,
                 props.edit_drivingSide,
                 props.edit_severity,
                 props.edit_kmPost,
@@ -172,11 +172,11 @@ const Event = (props) => {
           {getLocalTime(props.event.datetime)}
         </td>
         <td>
-          {props.event.eventType === 0
+          {props.event.type === 0
             ? "Fallen Tree"
-            : props.event.eventType === 1
+            : props.event.type === 1
             ? "LandSlide"
-            : props.event.eventType === 2
+            : props.event.type === 2
             ? "Flooding"
             : "Other"}
         </td>
@@ -271,12 +271,13 @@ export default class EventList extends Component {
     id,
     eventDate,
     eventTime,
-    eventType,
+    type,
     drivingSide,
     severity,
     kmPost,
     suburb
   ) {
+
     console.log("Update date format");
     const accDate = new Date(eventDate);
     const datetime = new Date(
@@ -289,11 +290,13 @@ export default class EventList extends Component {
     console.log(eventTime);
     console.log("update datetime:");
     console.log(datetime);
+    console.log("Update req:");
+    console.log(id+" "+datetime+" "+type);
     await axios
       .post("http://localhost:5000/event/update/", {
         id: id,
         datetime: datetime,
-        eventType: eventType,
+        type: type,
         drivingSide: drivingSide,
         severity: severity,
         kmPost: kmPost,
@@ -308,7 +311,7 @@ export default class EventList extends Component {
       edit_id: null,
       edit_eventDate: null,
       edit_eventTime: null,
-      edit_eventType: null,
+      edit_type: null,
       edit_drivingSide: null,
       edit_severity: null,
       edit_kmPost: null,
@@ -323,7 +326,7 @@ export default class EventList extends Component {
       edit_id: event.id,
       edit_eventDate: event.datetime,
       edit_eventTime: getLocalTime(event.datetime),
-      edit_eventType: event.eventType,
+      edit_type: event.type,
       edit_drivingSide: event.drivingSide,
       edit_severity: event.severity,
       edit_kmPost: event.kmPost,
@@ -338,7 +341,7 @@ export default class EventList extends Component {
       edit_id: null,
       edit_eventDate: null,
       edit_eventTime: null,
-      edit_eventType: null,
+      edit_type: null,
       edit_drivingSide: null,
       edit_severity: null,
       edit_kmPost: null,
@@ -367,7 +370,7 @@ export default class EventList extends Component {
 
   onChangeEventType(e) {
     this.setState({
-      edit_eventType: parseInt(e.target.value),
+      edit_type: parseInt(e.target.value),
     });
   }
 
@@ -450,7 +453,7 @@ export default class EventList extends Component {
           edit_id={this.state.edit_id}
           edit_eventDate={this.state.edit_eventDate}
           edit_eventTime={this.state.edit_eventTime}
-          edit_eventType={this.state.edit_eventType}
+          edit_type={this.state.edit_type}
           edit_drivingSide={this.state.edit_drivingSide}
           edit_severity={this.state.edit_severity}
           edit_kmPost={this.state.edit_kmPost}

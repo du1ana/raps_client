@@ -4,6 +4,9 @@ import axios from "axios";
 import { getLocalDate, getLocalTime } from "../utils/displayformat";
 import "./css/modal.css";
 
+import AccidentSubmission from "./accidentsubmission.component";
+import EventSubmission from "./eventsubmission.component";
+
 const Incident = (props) => (
   <tr>
     <td>
@@ -12,8 +15,16 @@ const Incident = (props) => (
       {getLocalTime(props.incident.datetime)}
     </td>
     <td>{props.incident.isAccident ? "Accident" : "Event"}</td>
-    <td>{props.incident.kmPost}</td>
-    <td>{props.incident.suburb}</td>
+    <td>{props.incident.drivingSide ? "Ma To Col" : "Col to Mat"}</td>
+    <td>{props.incident.lat}</td>
+    <td>{props.incident.lng}</td>
+    <td>
+      {props.incident.status === 0
+        ? "Reported"
+        : props.incident.status === 2
+        ? "E Team Dispatched"
+        : "Handled"}
+    </td>
     <td>
       <button
         className="btn btn-sm btn-warning m-2"
@@ -35,7 +46,7 @@ const Incident = (props) => (
   </tr>
 );
 
-const Modal = (props) => {
+const AccidentModal = (props) => {
   const showHideClassName = props.show
     ? "modal display-block"
     : "modal display-none";
@@ -43,10 +54,27 @@ const Modal = (props) => {
   return (
     <div className={showHideClassName}>
       <section className="modal-main">
-        {props.children}
-        <button type="button" onClick={props.handleClose}>
-          Close
+        <button type="button modal-close-btn" onClick={props.handleClose}>
+          X
         </button>
+        {props.children}
+      </section>
+    </div>
+  );
+};
+
+const EventModal = (props) => {
+  const showHideClassName = props.show
+    ? "modal display-block"
+    : "modal display-none";
+
+  return (
+    <div className={showHideClassName}>
+      <section className="modal-main">
+        <button type="button modal-close-btn" onClick={props.handleClose}>
+          X
+        </button>
+        {props.children}
       </section>
     </div>
   );
@@ -59,10 +87,12 @@ export default class ValidateIncident extends Component {
     this.deleteIncident = this.deleteIncident.bind(this);
     this.validateIncident = this.validateIncident.bind(this);
 
-    this.showModal = this.showModal.bind(this);
-    this.hideModal = this.hideModal.bind(this);
+    this.showAccidentModal = this.showAccidentModal.bind(this);
+    this.showEventModal = this.showEventModal.bind(this);
+    this.hideAccidentModal = this.hideAccidentModal.bind(this);
+    this.hideEventModal = this.hideEventModal.bind(this);
 
-    this.state = { incidentlist: [], show: false };
+    this.state = { incidentlist: [], showAccident: false, showEvent: false };
   }
 
   componentDidMount() {
@@ -79,7 +109,11 @@ export default class ValidateIncident extends Component {
 
   validateIncident(incident) {
     console.log(incident);
-    this.showModal();
+    if (incident.isAccident) {
+      this.showAccidentModal();
+    } else {
+      this.showEventModal();
+    }
   }
 
   deleteIncident(id) {
@@ -110,13 +144,24 @@ export default class ValidateIncident extends Component {
     });
   }
 
-  showModal = () => {
-    this.setState({ show: true });
-    console.log("showing Modal");
+  showAccidentModal = () => {
+    this.setState({ showAccident: true });
+    console.log("showing Accident Modal");
   };
 
-  hideModal = () => {
-    this.setState({ show: false });
+  showEventModal = () => {
+    this.setState({ showEvent: true });
+    console.log("showing Event Modal");
+  };
+
+  hideAccidentModal = () => {
+    this.setState({ showAccident: false });
+    console.log("hiding Accident Modal");
+  };
+
+  hideEventModal = () => {
+    this.setState({ showEvent: false });
+    console.log("showing Event Modal");
   };
 
   render() {
@@ -127,17 +172,28 @@ export default class ValidateIncident extends Component {
           <thead className="thead-light">
             <tr>
               <th>Date/Time</th>
-              <th>incidentType</th>
-              <th>kmPost</th>
-              <th>Suburb</th>
+              <th>Incident Type</th>
+              <th>Driving Side</th>
+              <th>Lat</th>
+              <th>Lng</th>
+              <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>{this.incidentlist()}</tbody>
         </table>
-        <Modal show={this.state.show} handleClose={this.hideModal}>
-          <p>Modal</p>
-        </Modal>
+        <AccidentModal
+          show={this.state.showAccident}
+          handleClose={this.hideAccidentModal}
+        >
+          <AccidentSubmission token={this.props.token} />
+        </AccidentModal>
+        <EventModal
+          show={this.state.showEvent}
+          handleClose={this.hideEventModal}
+        >
+          <EventSubmission token={this.props.token} />
+        </EventModal>
       </div>
     );
   }

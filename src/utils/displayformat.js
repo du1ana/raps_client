@@ -1,15 +1,15 @@
-export function getLocalTime(datetime){
+export function getLocalTime(datetime) {
   var d = new Date(datetime.toString());
   return d.toString().match(/\d\d:\d\d/)[0];
 }
 
-export function getLocalDate(datetime){
+export function getLocalDate(datetime) {
   var d = new Date(datetime.toString());
   return d.toString().match(/\w+ \w+ \d+ \d+/);
 }
 
-export function getSuburbName(int){
-  switch(int){
+export function getSuburbName(int) {
+  switch (int) {
     case 0:
       return "Kottawa";
     case 1:
@@ -37,8 +37,8 @@ export function getSuburbName(int){
   }
 }
 
-export function getKmCat(int){
-  switch(int){
+export function getKmCat(int) {
+  switch (int) {
     case 0:
       return "KM1";
     case 1:

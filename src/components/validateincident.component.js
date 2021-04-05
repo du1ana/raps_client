@@ -5,6 +5,7 @@ import { getLocalDate, getLocalTime } from "../utils/displayformat";
 import "./css/modal.css";
 
 import AccidentSubmission from "./accidentsubmission.component";
+import EventSubmission from "./eventsubmission.component";
 
 const Incident = (props) => (
   <tr>
@@ -45,7 +46,7 @@ const Incident = (props) => (
   </tr>
 );
 
-const Modal = (props) => {
+const AccidentModal = (props) => {
   const showHideClassName = props.show
     ? "modal display-block"
     : "modal display-none";
@@ -53,10 +54,27 @@ const Modal = (props) => {
   return (
     <div className={showHideClassName}>
       <section className="modal-main">
-        {props.children}
         <button type="button modal-close-btn" onClick={props.handleClose}>
-          Close
+          X
         </button>
+        {props.children}
+      </section>
+    </div>
+  );
+};
+
+const EventModal = (props) => {
+  const showHideClassName = props.show
+    ? "modal display-block"
+    : "modal display-none";
+
+  return (
+    <div className={showHideClassName}>
+      <section className="modal-main">
+        <button type="button modal-close-btn" onClick={props.handleClose}>
+          X
+        </button>
+        {props.children}
       </section>
     </div>
   );
@@ -69,10 +87,12 @@ export default class ValidateIncident extends Component {
     this.deleteIncident = this.deleteIncident.bind(this);
     this.validateIncident = this.validateIncident.bind(this);
 
-    this.showModal = this.showModal.bind(this);
-    this.hideModal = this.hideModal.bind(this);
+    this.showAccidentModal = this.showAccidentModal.bind(this);
+    this.showEventModal = this.showEventModal.bind(this);
+    this.hideAccidentModal = this.hideAccidentModal.bind(this);
+    this.hideEventModal = this.hideEventModal.bind(this);
 
-    this.state = { incidentlist: [], show: false };
+    this.state = { incidentlist: [], showAccident: false, showEvent: false };
   }
 
   componentDidMount() {
@@ -89,7 +109,11 @@ export default class ValidateIncident extends Component {
 
   validateIncident(incident) {
     console.log(incident);
-    this.showModal();
+    if (incident.isAccident) {
+      this.showAccidentModal();
+    } else {
+      this.showEventModal();
+    }
   }
 
   deleteIncident(id) {
@@ -120,13 +144,24 @@ export default class ValidateIncident extends Component {
     });
   }
 
-  showModal = () => {
-    this.setState({ show: true });
-    console.log("showing Modal");
+  showAccidentModal = () => {
+    this.setState({ showAccident: true });
+    console.log("showing Accident Modal");
   };
 
-  hideModal = () => {
-    this.setState({ show: false });
+  showEventModal = () => {
+    this.setState({ showEvent: true });
+    console.log("showing Event Modal");
+  };
+
+  hideAccidentModal = () => {
+    this.setState({ showAccident: false });
+    console.log("hiding Accident Modal");
+  };
+
+  hideEventModal = () => {
+    this.setState({ showEvent: false });
+    console.log("showing Event Modal");
   };
 
   render() {
@@ -147,9 +182,18 @@ export default class ValidateIncident extends Component {
           </thead>
           <tbody>{this.incidentlist()}</tbody>
         </table>
-        <Modal show={this.state.show} handleClose={this.hideModal}>
+        <AccidentModal
+          show={this.state.showAccident}
+          handleClose={this.hideAccidentModal}
+        >
           <AccidentSubmission token={this.props.token} />
-        </Modal>
+        </AccidentModal>
+        <EventModal
+          show={this.state.showEvent}
+          handleClose={this.hideEventModal}
+        >
+          <EventSubmission token={this.props.token} />
+        </EventModal>
       </div>
     );
   }

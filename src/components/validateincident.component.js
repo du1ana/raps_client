@@ -4,6 +4,8 @@ import axios from "axios";
 import { getLocalDate, getLocalTime } from "../utils/displayformat";
 import "./css/modal.css";
 
+import AccidentSubmission from "./accidentsubmission.component";
+
 const Incident = (props) => (
   <tr>
     <td>
@@ -12,8 +14,16 @@ const Incident = (props) => (
       {getLocalTime(props.incident.datetime)}
     </td>
     <td>{props.incident.isAccident ? "Accident" : "Event"}</td>
-    <td>{props.incident.kmPost}</td>
-    <td>{props.incident.suburb}</td>
+    <td>{props.incident.drivingSide ? "Ma To Col" : "Col to Mat"}</td>
+    <td>{props.incident.lat}</td>
+    <td>{props.incident.lng}</td>
+    <td>
+      {props.incident.status === 0
+        ? "Reported"
+        : props.incident.status === 2
+        ? "E Team Dispatched"
+        : "Handled"}
+    </td>
     <td>
       <button
         className="btn btn-sm btn-warning m-2"
@@ -44,7 +54,7 @@ const Modal = (props) => {
     <div className={showHideClassName}>
       <section className="modal-main">
         {props.children}
-        <button type="button" onClick={props.handleClose}>
+        <button type="button modal-close-btn" onClick={props.handleClose}>
           Close
         </button>
       </section>
@@ -127,16 +137,18 @@ export default class ValidateIncident extends Component {
           <thead className="thead-light">
             <tr>
               <th>Date/Time</th>
-              <th>incidentType</th>
-              <th>kmPost</th>
-              <th>Suburb</th>
+              <th>Incident Type</th>
+              <th>Driving Side</th>
+              <th>Lat</th>
+              <th>Lng</th>
+              <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>{this.incidentlist()}</tbody>
         </table>
         <Modal show={this.state.show} handleClose={this.hideModal}>
-          <p>Modal</p>
+          <AccidentSubmission token={this.props.token} />
         </Modal>
       </div>
     );

@@ -186,23 +186,30 @@ export default class HolidayList extends Component {
 
   async onSubmit(e) {
     e.preventDefault();
-
-    const holiday = {
-      date:this.state.holidayDate.toString().replace(/(\d\d:\d\d:\d\d)/,'00:00:00'),
-      name: this.state.name,
-      sessionToken: this.state.token,
-    }
-
     const d= new Date();
-    await axios.post('http://localhost:5000/holiday/add', holiday)
-      .then(res=>{
-        document.getElementById('holiday-report-form').reset();
-        this.setState({
-          res: res.data.message,
-          holidayDate:d,
-          name: ''
-        })
+
+    if(!(this.state.holidayDate instanceof Date)){
+      this.setState({
+        res: "Validation Error: Date is invalid",
+        holidayDate:d,
+        name: ''
       })
+    }else{
+      const holiday = {
+        date:this.state.holidayDate.toString().replace(/(\d\d:\d\d:\d\d)/,'00:00:00'),
+        name: this.state.name,
+        sessionToken: this.state.token,
+      }
+      await axios.post('http://localhost:5000/holiday/add', holiday)
+        .then(res=>{
+          document.getElementById('holiday-report-form').reset();
+          this.setState({
+            res: res.data.message,
+            holidayDate:d,
+            name: ''
+          })
+        })
+    }
       this.refresh();
   }
 

@@ -11,6 +11,7 @@ import {
   faSyncAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import Pagination from "./common/pagination";
+import Loading from "./common/loading";
 import { paginate } from "../utils/paginate";
 
 const Police = (props) => {
@@ -110,7 +111,7 @@ export default class PoliceList extends Component {
 
     this.state = {
       policelist: [],
-      loading: true,
+      updateFlag: true,
       edit_username: null,
       pageSize: this.props.pageSize,
       currentPage: 1,
@@ -237,7 +238,7 @@ export default class PoliceList extends Component {
   render() {
     const { length: count } = this.state.policelist;
     const { pageSize, currentPage, policelist: allPolice } = this.state;
-
+    if (this.state.updateFlag) return <Loading/>;
     if (count === 0) return <p>There are no Police Users in the database</p>;
 
     const police = paginate(allPolice, currentPage, pageSize);

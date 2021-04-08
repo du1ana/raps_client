@@ -5,6 +5,7 @@ import logo from "../icons/icon.png";
 
 import Navbar from "./navbar.component";
 import Content from "./content.component";
+import Loading from "./common/loading";
 
 import { getFromStorage } from "../utils/storage"; //implement log out
 
@@ -48,11 +49,7 @@ export default class Home extends Component {
   render() {
     if (this.state.loading) {
       return (
-        <div className="loading">
-          <svg>
-            <circle r="40" cx="150" cy="75" stroke="#999" stroke-width="10px" fill="none"/>
-          </svg>
-        </div>
+        <Loading/>
       );
     } else {
       //not logged in

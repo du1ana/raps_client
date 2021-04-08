@@ -8,7 +8,6 @@ export default class AddPolice extends Component {
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
-    this.onChangePassword2 = this.onChangePassword2.bind(this);
     this.onChangeAdminRights = this.onChangeAdminRights.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
@@ -39,19 +38,14 @@ export default class AddPolice extends Component {
     }
   }
 
-  onChangePassword(e) {
-    this.setState({
-      password: e.target.value,
-      res: "",
-    });
+  onChangePassword(int,e) {
+    if(int==1){
+      this.setState({password: e.target.value,res: ""});
+    }else{
+      this.setState({password2: e.target.value,res: ""});
+    }
   }
 
-  onChangePassword2(e) {
-    this.setState({
-      password2: e.target.value,
-      res: "",
-    });
-  }
 
   onChangeAdminRights(e) {
     this.setState({
@@ -129,7 +123,7 @@ export default class AddPolice extends Component {
               required
               className="form-control"
               value={this.state.password}
-              onChange={this.onChangePassword}
+              onChange={(e) => this.onChangePassword(1,e)}
               minlength="4"
               maxLength="20"
             />
@@ -141,7 +135,7 @@ export default class AddPolice extends Component {
               required
               className="form-control"
               value={this.state.password2}
-              onChange={this.onChangePassword2}
+              onChange={(e) => this.onChangePassword(2,e)}
               minlength="4"
               maxLength="20"
             />

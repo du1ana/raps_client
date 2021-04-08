@@ -17,8 +17,6 @@ import {
   getKmCat,
 } from "../utils/displayformat";
 
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
 

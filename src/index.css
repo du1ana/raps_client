@@ -45,6 +45,14 @@ svg circle{
   }
 }
 
+.form-check-input{
+  margin-left:0;
+}
+
+.form-check-label{
+  margin-left:1.25rem;
+}
+
 /*Holidays*/
 .add-holiday{
   position: relative;

@@ -27,6 +27,7 @@ const Police = (props) => {
             value={props.edit_name}
             onChange={props.onChangeName}
             minlength="4"
+            pattern ="[\W\w\s]+"
           ></input>
         </td>
         <td>
@@ -199,9 +200,12 @@ export default class PoliceList extends Component {
   }
 
   onChangeName(e) {
-    this.setState({
-      edit_name: e.target.value,
-    });
+    var newname = e.target.value;
+    var pattern = /^[A-Za-z ]+$/;
+    console.log(pattern.test(newname));
+    if(pattern.test(newname)){
+      this.setState({edit_name: e.target.value});
+    }
   }
 
   onChangeAdminRights(e) {

@@ -21,7 +21,7 @@ export default class Content extends React.Component {
       case "addeteam":
         return <AddETeam token={this.props.token} />;
       case "removeeteam":
-        return <RemoveETeam token={this.props.token} />;
+        return <RemoveETeam token={this.props.token} pageSize={pageSize} />;
       case "accidentsubmission":
         return <AccidentSubmission token={this.props.token} />;
       case "accidentlist":

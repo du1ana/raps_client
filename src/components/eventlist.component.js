@@ -15,6 +15,8 @@ import {
   getLocalTime,
   getSuburbName,
 } from "../utils/displayformat";
+import Pagination from "./common/pagination";
+import { paginate } from "../utils/paginate";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -25,15 +27,16 @@ const Event = (props) => {
       <tr className="table-secondary">
         <td>
           {getLocalDate(props.edit_eventDate)}
-          <br/>
+          <br />
           <input
             type="date"
             value={props.edit_eventDate}
             onChange={props.onChangeEventDate}
           />
-          </td>
-          <td>
-          {props.edit_eventTime}<br/>
+        </td>
+        <td>
+          {props.edit_eventTime}
+          <br />
           <input
             type="time"
             className="form-control-sm"
@@ -169,12 +172,8 @@ const Event = (props) => {
   } else {
     return (
       <tr>
-        <td>
-          {getLocalDate(props.event.datetime)}
-        </td>
-        <td>
-          {getLocalTime(props.event.datetime)}
-        </td>
+        <td>{getLocalDate(props.event.datetime)}</td>
+        <td>{getLocalTime(props.event.datetime)}</td>
         <td>
           {props.event.type === 0
             ? "Fallen Tree"
@@ -234,8 +233,18 @@ export default class EventList extends Component {
     this.onChangeSeverity = this.onChangeSeverity.bind(this);
     this.onChangeKmPost = this.onChangeKmPost.bind(this);
     this.onChangeSuburb = this.onChangeSuburb.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
 
-    this.state = { eventlist: [], loading: true };
+    this.state = {
+      eventlist: [],
+      loading: true,
+      pageSize: this.props.pageSize,
+      currentPage: 1,
+    };
+  }
+
+  handlePageChange(page) {
+    this.setState({ currentPage: page });
   }
 
   async componentDidMount() {
@@ -281,7 +290,6 @@ export default class EventList extends Component {
     kmPost,
     suburb
   ) {
-
     console.log("Update date format");
     const accDate = new Date(eventDate);
     const datetime = new Date(
@@ -295,7 +303,7 @@ export default class EventList extends Component {
     console.log("update datetime:");
     console.log(datetime);
     console.log("Update req:");
-    console.log(id+" "+datetime+" "+type);
+    console.log(id + " " + datetime + " " + type);
     await axios
       .post("http://localhost:5000/event/update/", {
         id: id,
@@ -439,8 +447,8 @@ export default class EventList extends Component {
 
   //array = [1,2,3,4,5];
 
-  eventList() {
-    return this.state.eventlist.map((currentevent) => {
+  eventList(props) {
+    return props.map((currentevent) => {
       return (
         <Event
           event={currentevent}
@@ -470,6 +478,13 @@ export default class EventList extends Component {
   }
 
   render() {
+    const { length: count } = this.state.eventlist;
+    const { pageSize, currentPage, eventlist: allEvents } = this.state;
+
+    if (count === 0) return <p>There are no Events in the database</p>;
+
+    const events = paginate(allEvents, currentPage, pageSize);
+
     return (
       <div>
         <h3>
@@ -497,8 +512,14 @@ export default class EventList extends Component {
               <th></th>
             </tr>
           </thead>
-          <tbody>{this.eventList()}</tbody>
+          <tbody>{this.eventList(events)}</tbody>
         </table>
+        <Pagination
+          itemsCount={count}
+          pageSize={pageSize}
+          onPageChange={this.handlePageChange}
+          currentPage={currentPage}
+        />
       </div>
     );
   }

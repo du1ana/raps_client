@@ -6,6 +6,8 @@ import "./css/modal.css";
 
 import AccidentSubmission from "./accidentsubmission.component";
 import EventSubmission from "./eventsubmission.component";
+import Pagination from "./common/pagination";
+import { paginate } from "../utils/paginate";
 
 const Incident = (props) => (
   <tr>
@@ -91,8 +93,15 @@ export default class ValidateIncident extends Component {
     this.showEventModal = this.showEventModal.bind(this);
     this.hideAccidentModal = this.hideAccidentModal.bind(this);
     this.hideEventModal = this.hideEventModal.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
 
-    this.state = { incidentlist: [], showAccident: false, showEvent: false };
+    this.state = {
+      incidentlist: [],
+      showAccident: false,
+      showEvent: false,
+      pageSize: this.props.pageSize,
+      currentPage: 1,
+    };
   }
 
   componentDidMount() {
@@ -105,6 +114,10 @@ export default class ValidateIncident extends Component {
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  handlePageChange(page) {
+    this.setState({ currentPage: page });
   }
 
   validateIncident(incident) {
@@ -131,8 +144,8 @@ export default class ValidateIncident extends Component {
     });
   }
 
-  incidentlist() {
-    return this.state.incidentlist.map((currentIncident) => {
+  incidentlist(props) {
+    return props.map((currentIncident) => {
       return (
         <Incident
           incident={currentIncident}
@@ -165,6 +178,13 @@ export default class ValidateIncident extends Component {
   };
 
   render() {
+    const { length: count } = this.state.incidentlist;
+    const { pageSize, currentPage, incidentlist: allIncident } = this.state;
+
+    if (count === 0) return <p>There are no Incident in the database</p>;
+
+    const incidents = paginate(allIncident, currentPage, pageSize);
+
     return (
       <div>
         <h3>Incident List</h3>
@@ -180,7 +200,7 @@ export default class ValidateIncident extends Component {
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>{this.incidentlist()}</tbody>
+          <tbody>{this.incidentlist(incidents)}</tbody>
         </table>
         <AccidentModal
           show={this.state.showAccident}
@@ -194,6 +214,12 @@ export default class ValidateIncident extends Component {
         >
           <EventSubmission token={this.props.token} />
         </EventModal>
+        <Pagination
+          itemsCount={count}
+          pageSize={pageSize}
+          onPageChange={this.handlePageChange}
+          currentPage={currentPage}
+        />
       </div>
     );
   }

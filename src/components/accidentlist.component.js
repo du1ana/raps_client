@@ -19,6 +19,8 @@ import {
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Pagination from "./common/pagination";
+import { paginate } from "../utils/paginate";
 
 const Accident = (props) => {
   if (props.accident.id === props.edit_id) {
@@ -457,12 +459,22 @@ export default class AccidentList extends Component {
     this.onChangeKmPost = this.onChangeKmPost.bind(this);
     this.onChangeSuburb = this.onChangeSuburb.bind(this);
     this.onChangeOperatedSpeed = this.onChangeOperatedSpeed.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
 
-    this.state = { accidentlist: [], loading: true };
+    this.state = {
+      accidentlist: [],
+      loading: true,
+      pageSize: this.props.pageSize,
+      currentPage: 1,
+    };
   }
 
   async componentDidMount() {
     await this.getList();
+  }
+
+  handlePageChange(page) {
+    this.setState({ currentPage: page });
   }
 
   getList = async () => {
@@ -752,8 +764,8 @@ export default class AccidentList extends Component {
     });
   }
 
-  accidentList() {
-    return this.state.accidentlist.map((currentaccident) => {
+  accidentList(props) {
+    return props.map((currentaccident) => {
       return (
         <Accident
           accident={currentaccident}
@@ -801,6 +813,12 @@ export default class AccidentList extends Component {
   }
 
   render() {
+    const { length: count } = this.state.accidentlist;
+    const { pageSize, currentPage, accidentlist: allAccident } = this.state;
+
+    if (count === 0) return <p>There are no Accidents in the database</p>;
+
+    const accidents = paginate(allAccident, currentPage, pageSize);
     return (
       <div>
         <h3>
@@ -849,8 +867,14 @@ export default class AccidentList extends Component {
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>{this.accidentList()}</tbody>
+          <tbody>{this.accidentList(accidents)}</tbody>
         </table>
+        <Pagination
+          itemsCount={count}
+          pageSize={pageSize}
+          onPageChange={this.handlePageChange}
+          currentPage={currentPage}
+        />
       </div>
     );
   }

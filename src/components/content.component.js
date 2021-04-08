@@ -14,29 +14,32 @@ import PoliceList from "./policelist.component.js";
 
 export default class Content extends React.Component {
   render() {
+    const pageSize = 5;
     switch (this.props.nav) {
       case "addpolice":
         return <AddPolice token={this.props.token} />;
       case "addeteam":
         return <AddETeam token={this.props.token} />;
       case "removeeteam":
-        return <RemoveETeam token={this.props.token} />;
+        return <RemoveETeam token={this.props.token} pageSize={pageSize} />;
       case "accidentsubmission":
         return <AccidentSubmission token={this.props.token} />;
       case "accidentlist":
-        return <AccidentList token={this.props.token} />;
+        return <AccidentList token={this.props.token} pageSize={pageSize} />;
       case "eventsubmission":
         return <EventSubmission token={this.props.token} />;
       case "eventlist":
-        return <EventList token={this.props.token} />;
+        return <EventList token={this.props.token} pageSize={pageSize} />;
       case "incidentlist":
-        return <ValidateIncident token={this.props.token} />;
+        return (
+          <ValidateIncident token={this.props.token} pageSize={pageSize} />
+        );
       case "policelist":
-        return <PoliceList token={this.props.token} />;
-        case "holiday":
-          return <Holiday token={this.props.token} />;
+        return <PoliceList token={this.props.token} pageSize={pageSize} />;
+      case "holiday":
+        return <Holiday token={this.props.token} pageSize={pageSize} />;
       default:
-        return <h1>{this.props.nav}</h1>;
+        return <h1>{this.props.nav} </h1>;
     }
   }
 }

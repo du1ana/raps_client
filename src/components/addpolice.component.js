@@ -46,7 +46,6 @@ export default class AddPolice extends Component {
     }
   }
 
-
   onChangeAdminRights(e) {
     this.setState({
       adminRights: e.target.checked,

@@ -37,9 +37,9 @@ export default class Content extends React.Component {
       case "policelist":
         return <PoliceList token={this.props.token} pageSize={pageSize} />;
       case "holiday":
-        return <Holiday token={this.props.token} />;
+        return <Holiday token={this.props.token} pageSize={pageSize} />;
       default:
-        return <h1>{this.props.nav}</h1>;
+        return <h1>{this.props.nav} </h1>;
     }
   }
 }

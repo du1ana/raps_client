@@ -14,6 +14,7 @@ import PoliceList from "./policelist.component.js";
 
 export default class Content extends React.Component {
   render() {
+    const pageSize = 5;
     switch (this.props.nav) {
       case "addpolice":
         return <AddPolice token={this.props.token} />;
@@ -24,17 +25,19 @@ export default class Content extends React.Component {
       case "accidentsubmission":
         return <AccidentSubmission token={this.props.token} />;
       case "accidentlist":
-        return <AccidentList token={this.props.token} />;
+        return <AccidentList token={this.props.token} pageSize={pageSize} />;
       case "eventsubmission":
         return <EventSubmission token={this.props.token} />;
       case "eventlist":
-        return <EventList token={this.props.token} />;
+        return <EventList token={this.props.token} pageSize={pageSize} />;
       case "incidentlist":
-        return <ValidateIncident token={this.props.token} />;
+        return (
+          <ValidateIncident token={this.props.token} pageSize={pageSize} />
+        );
       case "policelist":
-        return <PoliceList token={this.props.token} />;
-        case "holiday":
-          return <Holiday token={this.props.token} />;
+        return <PoliceList token={this.props.token} pageSize={pageSize} />;
+      case "holiday":
+        return <Holiday token={this.props.token} />;
       default:
         return <h1>{this.props.nav}</h1>;
     }

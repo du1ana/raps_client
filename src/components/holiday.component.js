@@ -4,7 +4,6 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarAlt,
-  faCalendarPlus,
   faEdit,
   faBan,
   faTrashAlt,
@@ -172,8 +171,7 @@ export default class HolidayList extends Component {
         id: id,
         name: name,
         date: date,
-        name: name,
-        sessionToken: this.props.token,
+        sessionToken: this.props.token
       })
       .then((response) => {
         console.log(response.data);

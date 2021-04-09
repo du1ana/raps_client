@@ -28,21 +28,13 @@ body{
   transform: translate(-50%, -50%);
 }
 
-svg circle{
-  stroke-dasharray: 314;
-  transform-origin: center center;
-  animation: loading 2s linear infinite;
+
+.form-check-input{
+  margin-left:0;
 }
 
-@keyframes loading{
-  0%{
-    stroke-dashoffset: 628;
-    transform: rotate(-360deg);
-  }
-  100%{
-    stroke-dashoffset: 0;
-    transform: rotate(360deg);
-  }
+.form-check-label{
+  margin-left:1.25rem;
 }
 
 /*Holidays*/

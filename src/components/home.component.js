@@ -5,6 +5,7 @@ import logo from "../icons/icon.png";
 
 import Navbar from "./navbar.component";
 import Content from "./content.component";
+import SignIn from "./signin.component";
 import Loading from "./common/loading";
 
 import { getFromStorage } from "../utils/storage"; //implement log out
@@ -13,6 +14,9 @@ export default class Home extends Component {
   constructor() {
     super();
     this.handleNavigation = this.handleNavigation.bind(this);
+    this.handleSignIn= this.handleSignIn.bind(this);
+    this.handleLogOut= this.handleLogOut.bind(this);
+    this.verifySession = this.verifySession.bind(this);
     this.state = {
       signedin: false,
       loading: false,
@@ -23,6 +27,10 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
+    this.verifySession();
+  }
+
+  verifySession(){
     this.setState({ loading: true });
     const token = getFromStorage("road_accident_prevention_system_webtoken");
     console.log("token:" + token);
@@ -32,13 +40,19 @@ export default class Home extends Component {
       })
       .then((response) => response.data)
       .then((data) => {
-        console.log(data);
-        this.setState({
-          signedin: true,
-          loading: false,
-          data: data,
-          token: token,
-        });
+        if(data.success){
+          this.setState({
+            signedin: true,
+            loading: false,
+            adminRights: data.adminRights,
+            token: token,
+          });
+        }else{
+          this.setState({
+            signedin: false,
+            loading: false
+          });
+        }
       });
   }
 
@@ -46,51 +60,41 @@ export default class Home extends Component {
     this.setState({ nav: str });
   }
 
+  handleSignIn(adminRights,token) {
+    this.setState({ signedin: true, adminRights: adminRights, token: token });
+  }
+
+  handleLogOut(str) {
+    this.setState({ signedin: false, adminRights: null, token: null });
+  }
+
+
   render() {
     if (this.state.loading) {
       return (
+        <div>
         <Loading/>
+        </div>
       );
     } else {
       //not logged in
-      if (!this.state.data.username) {
+      if (!this.state.signedin) {
         return (
-          <div className="content">
-            <nav className="navbar navbar-dark bg-dark">
-              <span className="navbar-brand mb-0 h1">
-                <img
-                  src={logo}
-                  width="30"
-                  height="30"
-                  className="d-inline-block align-top"
-                  alt="RAPS logo"
-                />&nbsp;
-                Road Accident Prediction System
-              </span>
-            </nav>
-
-
-            <div className="jumbotron jumbotron-fluid">
-              <div className="container">
-                <h1 className="display-4">Sign in to continue</h1>
-                <p class="lead">
-                  <button class="btn btn-warning btn-lg">
-                    <Link to="/signin">Sign in</Link>
-                  </button>
-                </p>
-
-              </div>
-            </div>
+          <div>
+          <SignIn
+            handleSignIn={this.handleSignIn}
+          />
           </div>
         );
       } else {
         return (
           <div>
             <Navbar
-              adminRights={this.state.data.adminRights}
+              adminRights={this.state.adminRights}
               token={this.state.token}
               navState={this.state.nav}
               handleNavigation={this.handleNavigation}
+              handleLogOut={this.handleLogOut}
             />
             <div className="content">
               <Content nav={this.state.nav} token={this.state.token} />

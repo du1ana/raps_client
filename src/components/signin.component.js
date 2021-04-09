@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import "./css/signin.component.css";
 import { Container, Row, Col } from "react-bootstrap";
@@ -34,32 +33,11 @@ export default class Signin extends Component {
 
     if (token) {
       //verify token
-      try {
-        axios
-          .get("http://localhost:5000/police/verifysession?token=" + token)
-          .then((res) => res.data)
-          .then((json) => {
-            if (json.success) {
-              this.setState({
-                token: token,
-                isLoading: false,
-              });
-            } else {
-              this.setState({
-                isLoading: false,
-              });
-            }
-          });
-      } catch (err) {
-        console.log(err);
-        this.setState({ isLoading: false });
-      }
-    } else {
       this.setState({ isLoading: false });
-    }
   }
+}
 
-  render() {
+  render(){
     const {
       isLoading,
       token,
@@ -164,21 +142,6 @@ export default class Signin extends Component {
         </div>
       );
     }
-
-    return (
-      <div className="content">
-        <div className="jumbotron jumbotron-fluid">
-          <div className="container">
-            <h1 className="display-4">Successfully Signed in!</h1>
-            <p class="lead">
-              <a class="btn btn-warning btn-lg signin" href="#" role="button">
-                <Link to="/">Load homepage</Link>
-              </a>
-            </p>
-          </div>
-        </div>
-      </div>
-    );
   }
 
   onTextboxChangeUsername(event) {
@@ -210,13 +173,8 @@ export default class Signin extends Component {
       .then((res) => res.data)
       .then((json) => {
         if (json.success) {
-          this.setState({
-            signInError: json.message,
-            token: json.token,
-            adminRights: json.adminRights,
-          });
           setInStorage("road_accident_prevention_system_webtoken", json.token);
-          this.props.history.push("/");
+          this.props.handleSignIn(json.adminRights,json.token)
         } else {
           this.setState({
             signInError: json.message,

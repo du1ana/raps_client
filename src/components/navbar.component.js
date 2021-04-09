@@ -21,12 +21,8 @@ export default class Navbar2 extends Component {
       .get("http://localhost:5000/police/logout/", { params: { token: t } })
       .then((response) => response.data)
       .then((data) => {
-        console.log(data);
-
-        //refresh page
-
-        if (window.location.href.substr(-2) !== "?r") {
-          window.location = window.location.href + "?r";
+        if(data.success){
+          this.props.handleLogOut();
         }
       });
   }

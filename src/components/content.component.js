@@ -15,6 +15,29 @@ import PoliceList from "./policelist.component.js";
 export default class Content extends React.Component {
   render() {
     const pageSize = 5;
+    const d = new Date();
+
+    const defaultAccident = {
+      accidentDate: d,
+      accidentTime: d.toString().match(/(\d\d:\d\d)/)[0],
+      driverAge: 17,
+      driverGender: false,
+      weather: false,
+      roadSurface: false,
+      vehicleType: 0,
+      vehicleYOM: d.getFullYear(),
+      licenseIssueDate: d,
+      drivingSide: false,
+      severity: 0,
+      reason: 0,
+      kmPost: 0,
+      suburb: 0,
+      operatedSpeed: 0,
+      vehicle_condition: false,
+      token: this.props.token,
+      res: "",
+    };
+
     switch (this.props.nav) {
       case "addpolice":
         return <AddPolice token={this.props.token} />;
@@ -23,7 +46,12 @@ export default class Content extends React.Component {
       case "removeeteam":
         return <RemoveETeam token={this.props.token} pageSize={pageSize} />;
       case "accidentsubmission":
-        return <AccidentSubmission token={this.props.token} />;
+        return (
+          <AccidentSubmission
+            token={this.props.token}
+            accident={defaultAccident}
+          />
+        );
       case "accidentlist":
         return <AccidentList token={this.props.token} pageSize={pageSize} />;
       case "eventsubmission":

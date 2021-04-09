@@ -129,6 +129,17 @@ export default class ValidateIncident extends Component {
         token: this.props.token,
         res: "",
       },
+      verifiedEvent: {
+        eventDate: new Date(),
+        eventTime: new Date().toString().match(/(\d\d:\d\d)/)[0],
+        type: 0,
+        drivingSide: false,
+        severity: 0,
+        kmPost: 0,
+        suburb: 0,
+        token: this.props.token,
+        res: "",
+      },
     };
   }
 
@@ -149,8 +160,6 @@ export default class ValidateIncident extends Component {
   }
 
   async validateIncident(incident) {
-    console.log("Incident here", incident);
-
     const latitude = parseFloat(incident.lat);
     const longitude = parseFloat(incident.lng);
     const suburb = getSuburbInt(
@@ -184,20 +193,28 @@ export default class ValidateIncident extends Component {
         token: this.props.token,
         res: "",
       };
-
-      console.log("suburb", suburb, kmPost);
-
       await this.setState({ verifiedAccident: verifiedAccident }, () => {
         console.log("updated accident");
       });
       this.showAccidentModal();
-      console.log(
-        "verified Accident here",
-        this.state.verifiedAccident,
-        "skens",
-        verifiedAccident
-      );
     } else {
+      const verifiedEvent = {
+        eventDate: new Date(Date.parse(incident.datetime)),
+        eventTime: new Date(Date.parse(incident.datetime))
+          .toString()
+          .match(/(\d\d:\d\d)/)[0],
+        type: 0,
+        drivingSide: incident.drivingSide,
+        severity: 0,
+        kmPost: kmPost,
+        suburb: suburb,
+        token: this.props.token,
+        res: "",
+      };
+      await this.setState({ verifiedEvent: verifiedEvent }, () => {
+        console.log("updated event");
+      });
+
       this.showEventModal();
     }
   }
@@ -258,31 +275,6 @@ export default class ValidateIncident extends Component {
 
     const incidents = paginate(allIncident, currentPage, pageSize);
 
-    // const d = new Date();
-
-    // const defaultAccident = {
-    //   accidentDate: d,
-    //   accidentTime: d.toString().match(/(\d\d:\d\d)/)[0],
-    //   driverAge: 27,
-    //   driverGender: false,
-    //   weather: false,
-    //   roadSurface: false,
-    //   vehicleType: 0,
-    //   vehicleYOM: d.getFullYear(),
-    //   licenseIssueDate: d,
-    //   drivingSide: false,
-    //   severity: 1,
-    //   reason: 0,
-    //   kmPost: 63,
-    //   suburb: 7,
-    //   operatedSpeed: 0,
-    //   vehicle_condition: false,
-    //   token: this.props.token,
-    //   res: "",
-    // };
-
-    console.log("final", this.state.verifiedAccident);
-
     return (
       <div>
         <h3>Incident List</h3>
@@ -314,7 +306,10 @@ export default class ValidateIncident extends Component {
           show={this.state.showEvent}
           handleClose={this.hideEventModal}
         >
-          <EventSubmission token={this.props.token} />
+          <EventSubmission
+            token={this.props.token}
+            event={this.state.verifiedEvent}
+          />
         </EventModal>
         <Pagination
           itemsCount={count}

@@ -52,7 +52,6 @@ export default class AccidentSubmission extends Component {
       token: this.props.token,
       res: "",
     };
-    console.log("I am a changed state");
   }
 
   onChangeAccidentDate(date) {
@@ -277,12 +276,10 @@ export default class AccidentSubmission extends Component {
   }
 
   render() {
-    console.log("happy birthday ", this.props);
-
     return (
       <div className="acc">
         <button className="badge badge-primary" onClick={this.refresh}>
-          refresh
+          Update form
         </button>
         <form id="accident-report-from" onSubmit={this.onSubmit}>
           <div className="header">

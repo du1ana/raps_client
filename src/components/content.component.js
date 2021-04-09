@@ -38,6 +38,18 @@ export default class Content extends React.Component {
       res: "",
     };
 
+    const defaultEvent = {
+      eventDate: d,
+      eventTime: d.toString().match(/(\d\d:\d\d)/)[0],
+      type: 0,
+      drivingSide: false,
+      severity: 0,
+      kmPost: 0,
+      suburb: 0,
+      token: this.props.token,
+      res: "",
+    };
+
     switch (this.props.nav) {
       case "addpolice":
         return <AddPolice token={this.props.token} />;
@@ -55,7 +67,9 @@ export default class Content extends React.Component {
       case "accidentlist":
         return <AccidentList token={this.props.token} pageSize={pageSize} />;
       case "eventsubmission":
-        return <EventSubmission token={this.props.token} />;
+        return (
+          <EventSubmission token={this.props.token} event={defaultEvent} />
+        );
       case "eventlist":
         return <EventList token={this.props.token} pageSize={pageSize} />;
       case "incidentlist":

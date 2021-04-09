@@ -31,7 +31,7 @@ const Incident = (props) => (
     <td>
       {props.incident.status === 0
         ? "Reported"
-        : props.incident.status === 2
+        : props.incident.status === 1
         ? "E Team Dispatched"
         : "Handled"}
     </td>

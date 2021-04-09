@@ -271,7 +271,21 @@ export default class ValidateIncident extends Component {
     const { length: count } = this.state.incidentlist;
     const { pageSize, currentPage, incidentlist: allIncident } = this.state;
 
-    if (count === 0) return <p>There are no Incident in the database</p>;
+    if (count === 0)
+      return (
+        <div className="loading">
+          <svg>
+            <circle
+              r="40"
+              cx="150"
+              cy="75"
+              stroke="#999"
+              stroke-width="10px"
+              fill="none"
+            />
+          </svg>
+        </div>
+      );
 
     const incidents = paginate(allIncident, currentPage, pageSize);
 

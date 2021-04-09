@@ -28,7 +28,7 @@ const Police = (props) => {
             value={props.edit_name}
             onChange={props.onChangeName}
             minlength="4"
-            pattern ="[\W\w\s]+"
+            pattern="[\W\w\s]+"
           ></input>
         </td>
         <td>
@@ -204,8 +204,8 @@ export default class PoliceList extends Component {
     var newname = e.target.value;
     var pattern = /^[A-Za-z ]+$/;
     console.log(pattern.test(newname));
-    if(pattern.test(newname)){
-      this.setState({edit_name: e.target.value});
+    if (pattern.test(newname)) {
+      this.setState({ edit_name: e.target.value });
     }
   }
 
@@ -238,8 +238,22 @@ export default class PoliceList extends Component {
   render() {
     const { length: count } = this.state.policelist;
     const { pageSize, currentPage, policelist: allPolice } = this.state;
-    if (this.state.updateFlag) return <Loading/>;
-    if (count === 0) return <p>There are no Police Users in the database</p>;
+    if (this.state.updateFlag) return <Loading />;
+    if (count === 0)
+      return (
+        <div className="loading">
+          <svg>
+            <circle
+              r="40"
+              cx="150"
+              cy="75"
+              stroke="#999"
+              stroke-width="10px"
+              fill="none"
+            />
+          </svg>
+        </div>
+      );
 
     const police = paginate(allPolice, currentPage, pageSize);
     return (

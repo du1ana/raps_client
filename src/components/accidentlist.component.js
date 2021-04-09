@@ -814,7 +814,21 @@ export default class AccidentList extends Component {
     const { length: count } = this.state.accidentlist;
     const { pageSize, currentPage, accidentlist: allAccident } = this.state;
 
-    if (count === 0) return <p>There are no Accidents in the database</p>;
+    if (count === 0)
+      return (
+        <div className="loading">
+          <svg>
+            <circle
+              r="40"
+              cx="150"
+              cy="75"
+              stroke="#999"
+              stroke-width="10px"
+              fill="none"
+            />
+          </svg>
+        </div>
+      );
 
     const accidents = paginate(allAccident, currentPage, pageSize);
     return (

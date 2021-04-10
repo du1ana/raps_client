@@ -465,7 +465,7 @@ export default class AccidentList extends Component {
       loading: true,
       pageSize: this.props.pageSize,
       currentPage: 1,
-      updateFlag: true
+      updateFlag: true,
     };
   }
 
@@ -815,7 +815,7 @@ export default class AccidentList extends Component {
   render() {
     const { length: count } = this.state.accidentlist;
     const { pageSize, currentPage, accidentlist: allAccident } = this.state;
-    if(this.state.updateFlag) return <Loading/>
+    if (this.state.updateFlag) return <Loading />;
     if (count === 0) return <p>There are no Accidents in the database</p>;
 
     const accidents = paginate(allAccident, currentPage, pageSize);

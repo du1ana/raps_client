@@ -29,13 +29,6 @@ const Incident = (props) => (
       })}
     </td>
     <td>
-      {props.incident.status === 0
-        ? "Reported"
-        : props.incident.status === 1
-        ? "E Team Dispatched"
-        : "Handled"}
-    </td>
-    <td>
       <button
         className="btn btn-sm btn-warning m-2"
         onClick={() => {
@@ -271,7 +264,21 @@ export default class ValidateIncident extends Component {
     const { length: count } = this.state.incidentlist;
     const { pageSize, currentPage, incidentlist: allIncident } = this.state;
 
-    if (count === 0) return <p>There are no Incident in the database</p>;
+    if (count === 0)
+      return (
+        <div className="loading">
+          <svg>
+            <circle
+              r="40"
+              cx="150"
+              cy="75"
+              stroke="#999"
+              stroke-width="10px"
+              fill="none"
+            />
+          </svg>
+        </div>
+      );
 
     const incidents = paginate(allIncident, currentPage, pageSize);
 
@@ -287,7 +294,6 @@ export default class ValidateIncident extends Component {
               <th>Lat</th>
               <th>Lng</th>
               <th>Suburb</th>
-              <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -300,6 +306,7 @@ export default class ValidateIncident extends Component {
           <AccidentSubmission
             token={this.props.token}
             accident={this.state.verifiedAccident}
+            isModal={true}
           />
         </AccidentModal>
         <EventModal
@@ -309,6 +316,7 @@ export default class ValidateIncident extends Component {
           <EventSubmission
             token={this.props.token}
             event={this.state.verifiedEvent}
+            isModal={true}
           />
         </EventModal>
         <Pagination

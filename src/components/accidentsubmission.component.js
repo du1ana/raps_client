@@ -197,61 +197,71 @@ export default class AccidentSubmission extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    const datetime = new Date(
-      this.state.accidentDate
-        .toString()
-        .replace(/(\d\d:\d\d:\d\d)/, this.state.accidentTime)
-    );
-
-    const accident = {
-      datetime: datetime,
-      driverAge: this.state.driverAge,
-      driverGender: this.state.driverGender,
-      weather: this.state.weather,
-      roadSurface: this.state.roadSurface,
-      vehicleType: this.state.vehicleType,
-      vehicleYOM: this.state.vehicleYOM,
-      vehicle_condition: this.state.vehicle_condition,
-      licenseIssueDate: this.state.licenseIssueDate,
-      drivingSide: this.state.drivingSide,
-      severity: this.state.severity,
-      reason: this.state.reason,
-      kmPost: this.state.kmPost,
-      suburb: this.state.suburb,
-      operatedSpeed: this.state.operatedSpeed,
-      sessionToken: this.state.token,
-    };
-
-    console.log(accident);
-
     const d = new Date();
 
-    axios
-      .post("http://localhost:5000/accident/submit", accident)
-      .then((res) => {
-        console.log("submit res:");
-        console.log(res);
-        document.getElementById("accident-report-from").reset();
-        this.setState({
-          res: res.data.message,
-          accidentDate: d,
-          accidentTime: d.toString().match(/(\d\d:\d\d)/)[0],
-          driverAge: 17,
-          driverGender: false,
-          weather: false,
-          roadSurface: false,
-          vehicleType: 0,
-          vehicleYOM: d.getFullYear(),
-          licenseIssueDate: d,
-          drivingSide: false,
-          severity: 0,
-          reason: 0,
-          kmPost: 0,
-          suburb: 0,
-          operatedSpeed: 0,
-          vehicle_condition: false,
-        });
+    if (!(this.state.accidentDate instanceof Date)) {
+      this.setState({
+        res: "Validation Error: Date is invalid",
+        accidentDate: d,
+        name: "",
       });
+    } else {
+      const datetime = new Date(
+        this.state.accidentDate
+          .toString()
+          .replace(/(\d\d:\d\d:\d\d)/, this.state.accidentTime)
+      );
+
+      const accident = {
+        datetime: datetime,
+        driverAge: this.state.driverAge,
+        driverGender: this.state.driverGender,
+        weather: this.state.weather,
+        roadSurface: this.state.roadSurface,
+        vehicleType: this.state.vehicleType,
+        vehicleYOM: this.state.vehicleYOM,
+        vehicle_condition: this.state.vehicle_condition,
+        licenseIssueDate: this.state.licenseIssueDate,
+        drivingSide: this.state.drivingSide,
+        severity: this.state.severity,
+        reason: this.state.reason,
+        kmPost: this.state.kmPost,
+        suburb: this.state.suburb,
+        operatedSpeed: this.state.operatedSpeed,
+        sessionToken: this.state.token,
+      };
+
+      console.log(accident);
+
+      const d = new Date();
+
+      axios
+        .post("http://localhost:5000/accident/submit", accident)
+        .then((res) => {
+          console.log("submit res:");
+          console.log(res);
+          document.getElementById("accident-report-from").reset();
+          this.setState({
+            res: res.data.message,
+            accidentDate: d,
+            accidentTime: d.toString().match(/(\d\d:\d\d)/)[0],
+            driverAge: 17,
+            driverGender: false,
+            weather: false,
+            roadSurface: false,
+            vehicleType: 0,
+            vehicleYOM: d.getFullYear(),
+            licenseIssueDate: d,
+            drivingSide: false,
+            severity: 0,
+            reason: 0,
+            kmPost: 0,
+            suburb: 0,
+            operatedSpeed: 0,
+            vehicle_condition: false,
+          });
+        });
+    }
   }
 
   refresh() {
@@ -278,9 +288,11 @@ export default class AccidentSubmission extends Component {
   render() {
     return (
       <div className="acc">
-        <button className="badge badge-primary" onClick={this.refresh}>
-          Update form
-        </button>
+        {this.props.isModal && (
+          <button className="badge badge-primary" onClick={this.refresh}>
+            Update form
+          </button>
+        )}
         <form id="accident-report-from" onSubmit={this.onSubmit}>
           <div className="header">
             <h3>Accident Report </h3>

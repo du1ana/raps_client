@@ -81,7 +81,21 @@ export default class ETeamList extends Component {
     const { length: count } = this.state.eTeamlist;
     const { pageSize, currentPage, eTeamlist: allEteam } = this.state;
 
-    if (count === 0) return <p>There are no E Teams in the database</p>;
+    if (count === 0)
+      return (
+        <div className="loading">
+          <svg>
+            <circle
+              r="40"
+              cx="150"
+              cy="75"
+              stroke="#999"
+              stroke-width="10px"
+              fill="none"
+            />
+          </svg>
+        </div>
+      );
 
     const eteams = paginate(allEteam, currentPage, pageSize);
     return (

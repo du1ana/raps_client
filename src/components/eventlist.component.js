@@ -482,7 +482,7 @@ export default class EventList extends Component {
   render() {
     const { length: count } = this.state.eventlist;
     const { pageSize, currentPage, eventlist: allEvents } = this.state;
-    if(this.state.updateFlag) return <Loading/>
+    if (this.state.updateFlag) return <Loading />;
     if (count === 0) return <p>There are no Events in the database</p>;
 
     const events = paginate(allEvents, currentPage, pageSize);

@@ -171,7 +171,7 @@ export default class HolidayList extends Component {
         id: id,
         name: name,
         date: date,
-        sessionToken: this.props.token
+        sessionToken: this.props.token,
       })
       .then((response) => {
         console.log(response.data);
@@ -237,32 +237,34 @@ export default class HolidayList extends Component {
   async onSubmit(e) {
     e.preventDefault();
 
-    const d= new Date();
+    const d = new Date();
 
-    if(!(this.state.holidayDate instanceof Date)){
+    if (!(this.state.holidayDate instanceof Date)) {
       this.setState({
         res: "Validation Error: Date is invalid",
-        holidayDate:d,
-        name: ''
-      })
-    }else{
+        holidayDate: d,
+        name: "",
+      });
+    } else {
       const holiday = {
-        date:this.state.holidayDate.toString().replace(/(\d\d:\d\d:\d\d)/,'00:00:00'),
+        date: this.state.holidayDate
+          .toString()
+          .replace(/(\d\d:\d\d:\d\d)/, "00:00:00"),
         name: this.state.name,
         sessionToken: this.state.token,
-      }
-      await axios.post('http://localhost:5000/holiday/add', holiday)
-        .then(res=>{
-          document.getElementById('holiday-report-form').reset();
+      };
+      await axios
+        .post("http://localhost:5000/holiday/add", holiday)
+        .then((res) => {
+          document.getElementById("holiday-report-form").reset();
           this.setState({
             res: res.data.message,
-            holidayDate:d,
-            name: ''
-          })
-        })
+            holidayDate: d,
+            name: "",
+          });
+        });
     }
-      this.refresh();
-
+    this.refresh();
   }
 
   holidayList(props) {
@@ -289,7 +291,21 @@ export default class HolidayList extends Component {
     const { length: count } = this.state.holidaylist;
     const { pageSize, currentPage, holidaylist: allHolidays } = this.state;
 
-    if (count === 0) return <p>There are no Holidays in the database</p>;
+    if (count === 0)
+      return (
+        <div className="loading">
+          <svg>
+            <circle
+              r="40"
+              cx="150"
+              cy="75"
+              stroke="#999"
+              stroke-width="10px"
+              fill="none"
+            />
+          </svg>
+        </div>
+      );
 
     const holidays = paginate(allHolidays, currentPage, pageSize);
 

@@ -118,39 +118,49 @@ export default class EventSubmission extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    const datetime = new Date(
-      this.state.eventDate
-        .toString()
-        .replace(/(\d\d:\d\d:\d\d)/, this.state.eventTime)
-    );
-
-    const event = {
-      datetime: datetime,
-      type: this.state.type,
-      drivingSide: this.state.drivingSide,
-      severity: this.state.severity,
-      kmPost: this.state.kmPost,
-      suburb: this.state.suburb,
-      sessionToken: this.state.token,
-    };
-
-    console.log(event);
-
     const d = new Date();
 
-    axios.post("http://localhost:5000/event/submit", event).then((res) => {
-      document.getElementById("event-report-from").reset();
+    if (!(this.state.eventDate instanceof Date)) {
       this.setState({
-        res: res.data.message,
+        res: "Validation Error: Date is invalid",
         eventDate: d,
-        eventTime: d.toString().match(/(\d\d:\d\d)/)[0],
-        type: 0,
-        drivingSide: false,
-        severity: 0,
-        kmPost: 0,
-        suburb: 0,
+        name: "",
       });
-    });
+    } else {
+      const datetime = new Date(
+        this.state.eventDate
+          .toString()
+          .replace(/(\d\d:\d\d:\d\d)/, this.state.eventTime)
+      );
+
+      const event = {
+        datetime: datetime,
+        type: this.state.type,
+        drivingSide: this.state.drivingSide,
+        severity: this.state.severity,
+        kmPost: this.state.kmPost,
+        suburb: this.state.suburb,
+        sessionToken: this.state.token,
+      };
+
+      console.log(event);
+
+      const d = new Date();
+
+      axios.post("http://localhost:5000/event/submit", event).then((res) => {
+        document.getElementById("event-report-from").reset();
+        this.setState({
+          res: res.data.message,
+          eventDate: d,
+          eventTime: d.toString().match(/(\d\d:\d\d)/)[0],
+          type: 0,
+          drivingSide: false,
+          severity: 0,
+          kmPost: 0,
+          suburb: 0,
+        });
+      });
+    }
   }
 
   refresh() {
@@ -168,9 +178,11 @@ export default class EventSubmission extends Component {
   render() {
     return (
       <div className="acc">
-        <button className="badge badge-primary" onClick={this.refresh}>
-          Update form
-        </button>
+        {this.props.isModal && (
+          <button className="badge badge-primary" onClick={this.refresh}>
+            Update form
+          </button>
+        )}
         <form id="event-report-from" onSubmit={this.onSubmit}>
           <div className="header">
             <h3>Event Report </h3>

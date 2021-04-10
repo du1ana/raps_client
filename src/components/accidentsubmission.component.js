@@ -288,15 +288,15 @@ export default class AccidentSubmission extends Component {
   render() {
     return (
       <div className="acc">
+        <div className="header">
+          <h3>Accident Report </h3>
+        </div>
         {this.props.isModal && (
           <button className="badge badge-primary" onClick={this.refresh}>
             Update form
           </button>
         )}
         <form id="accident-report-from" onSubmit={this.onSubmit}>
-          <div className="header">
-            <h3>Accident Report </h3>
-          </div>
           <br />
           <div>
             <div className="form-group row">

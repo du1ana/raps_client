@@ -56,7 +56,7 @@ const AccidentModal = (props) => {
 
   return (
     <div className={showHideClassName}>
-      <section className="modal-main">
+      <section className="modal-main ">
         <button type="button modal-close-btn" onClick={props.handleClose}>
           X
         </button>

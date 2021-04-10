@@ -178,15 +178,15 @@ export default class EventSubmission extends Component {
   render() {
     return (
       <div className="acc">
+        <div className="header">
+          <h3>Event Report </h3>
+        </div>
         {this.props.isModal && (
           <button className="badge badge-primary" onClick={this.refresh}>
             Update form
           </button>
         )}
         <form id="event-report-from" onSubmit={this.onSubmit}>
-          <div className="header">
-            <h3>Event Report </h3>
-          </div>
           <br />
           <div>
             <div className="form-group row">

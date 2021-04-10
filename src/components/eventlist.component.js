@@ -482,27 +482,8 @@ export default class EventList extends Component {
   render() {
     const { length: count } = this.state.eventlist;
     const { pageSize, currentPage, eventlist: allEvents } = this.state;
-<<<<<<< HEAD
-
-    if (count === 0)
-      return (
-        <div className="loading">
-          <svg>
-            <circle
-              r="40"
-              cx="150"
-              cy="75"
-              stroke="#999"
-              stroke-width="10px"
-              fill="none"
-            />
-          </svg>
-        </div>
-      );
-=======
-    if(this.state.updateFlag) return <Loading/>
+    if (this.state.updateFlag) return <Loading />;
     if (count === 0) return <p>There are no Events in the database</p>;
->>>>>>> 4729f5d0654eab4f195742b97b10d86226fa5163
 
     const events = paginate(allEvents, currentPage, pageSize);
 

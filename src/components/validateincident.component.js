@@ -29,16 +29,6 @@ const Incident = (props) => (
       })}
     </td>
     <td>
-<<<<<<< HEAD
-=======
-      {props.incident.status === 0
-        ? "Reported"
-        : props.incident.status === 1
-        ? "E Team Dispatched"
-        : "Handled"}
-    </td>
-    <td>
->>>>>>> 4729f5d0654eab4f195742b97b10d86226fa5163
       <button
         className="btn btn-sm btn-warning m-2"
         onClick={() => {

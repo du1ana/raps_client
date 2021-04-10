@@ -29,13 +29,6 @@ const Incident = (props) => (
       })}
     </td>
     <td>
-      {props.incident.status === 0
-        ? "Reported"
-        : props.incident.status === 2
-        ? "E Team Dispatched"
-        : "Handled"}
-    </td>
-    <td>
       <button
         className="btn btn-sm btn-warning m-2"
         onClick={() => {
@@ -301,7 +294,6 @@ export default class ValidateIncident extends Component {
               <th>Lat</th>
               <th>Lng</th>
               <th>Suburb</th>
-              <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -314,6 +306,7 @@ export default class ValidateIncident extends Component {
           <AccidentSubmission
             token={this.props.token}
             accident={this.state.verifiedAccident}
+            isModal={true}
           />
         </AccidentModal>
         <EventModal
@@ -323,6 +316,7 @@ export default class ValidateIncident extends Component {
           <EventSubmission
             token={this.props.token}
             event={this.state.verifiedEvent}
+            isModal={true}
           />
         </EventModal>
         <Pagination

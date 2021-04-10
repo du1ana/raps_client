@@ -116,7 +116,7 @@ export default class Signin extends Component {
                             </tr>
                           </div>
                           <div className="signInError">
-                            <p className="text-danger">{signInError}</p>
+                            <p className="d-block text-danger">&nbsp;{signInError}</p>
                           </div>
                         </form>
                         <button

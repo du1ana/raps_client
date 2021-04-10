@@ -214,7 +214,7 @@ export default class ValidateIncident extends Component {
 
   deleteIncident(id) {
     axios
-      .delete("http://localhost:5000/incident/delete/", {
+      .delete("http://localhost:5000/incident/police/delete/", {
         data: { id: id, sessionToken: this.props.token },
       })
       .then((response) => {

@@ -32,7 +32,7 @@ export default class AddPolice extends Component {
 
   onChangeName(e) {
     var newname = e.target.value;
-    var pattern = /^[A-Za-z ]*$/;
+    var pattern = /^[A-Za-z0-9 ]*$/;
     if(pattern.test(newname)){
       this.setState({name: e.target.value, res:""});
     }

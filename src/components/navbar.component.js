@@ -73,7 +73,7 @@ export default class Navbar2 extends Component {
                 </button>
               </Dropdown.Item>
               <Dropdown.Item>
-                <button onClick={() => this.props.handleNavigation("removeeteam")} className="dropdown-item">
+                <button onClick={() => this.props.handleNavigation("eteamlist")} className="dropdown-item">
                   <FontAwesomeIcon icon={faListAlt} />&nbsp;
                   Emergency Team List
                 </button>

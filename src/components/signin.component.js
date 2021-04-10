@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./css/signin.component.css";
 import { Container, Row, Col } from "react-bootstrap";
-import SVGsign from "../Assets/signin2.svg";
+import SVGsign from "../Assets/signin1.svg";
+import logo from "../icons/icon.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 
@@ -61,23 +62,21 @@ export default class Signin extends Component {
       return (
         <div className="content">
           <div className="background">
-            <div className="form-button">
+            <div className="">
               <Container>
                 <Row>
-                  <Col md-12 sm-12>
+                  <div className="col-md-6">
                     <Row>
-                      <h3>Road Accident Prevention System</h3>
+
+                      <div className="title mx-auto"><img src={logo} width="30" height="30" className="d-inline-block align-top" alt="RAPS icon"/> Road Accident Prevention System</div>
                     </Row>
-                    <img className="sign-img" src={SVGsign} height="300"/>
-                  </Col>
-                  <Col md-12 sm-12>
+                    <img className="sign-img d-none d-md-inline" src={SVGsign} height="350vh"/>
+                  </div>
+                  <div className="col-md-6 mt-5">
                     <div className="formside">
-                      <div className="welcome">
-                        <h4>Welcome Back!</h4>
-                        <h6>Login to continue</h6>
-                      </div>
-                      <div className="form-inside">
+                      <div className="form-inside form-button">
                         <form>
+                        <h3>Sign in</h3>
                           <div className="form-groupone">
                             <tr>
                               <td>
@@ -121,7 +120,7 @@ export default class Signin extends Component {
                           </div>
                         </form>
                         <button
-                          className="btn btn-warning btn-block signin"
+                          className="btn btn-signin btn-block signin"
                           disabled={!activateSubmit}
                           onClick={this.onSignin}
                         >
@@ -134,7 +133,7 @@ export default class Signin extends Component {
                         </tr>
                       </div>
                     </div>
-                  </Col>
+                  </div>
                 </Row>
               </Container>
             </div>

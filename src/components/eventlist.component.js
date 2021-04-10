@@ -16,6 +16,7 @@ import {
   getSuburbName,
 } from "../utils/displayformat";
 import Pagination from "./common/pagination";
+import Loading from "./common/loading";
 import { paginate } from "../utils/paginate";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -236,6 +237,7 @@ export default class EventList extends Component {
     this.handlePageChange = this.handlePageChange.bind(this);
 
     this.state = {
+      updateFlag: true,
       eventlist: [],
       loading: true,
       pageSize: this.props.pageSize,
@@ -480,6 +482,7 @@ export default class EventList extends Component {
   render() {
     const { length: count } = this.state.eventlist;
     const { pageSize, currentPage, eventlist: allEvents } = this.state;
+<<<<<<< HEAD
 
     if (count === 0)
       return (
@@ -496,6 +499,10 @@ export default class EventList extends Component {
           </svg>
         </div>
       );
+=======
+    if(this.state.updateFlag) return <Loading/>
+    if (count === 0) return <p>There are no Events in the database</p>;
+>>>>>>> 4729f5d0654eab4f195742b97b10d86226fa5163
 
     const events = paginate(allEvents, currentPage, pageSize);
 

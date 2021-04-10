@@ -1,134 +1,169 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 
-
-export default class AddETeam extends Component {
+export default class AddPolice extends Component {
   constructor(props) {
     super(props);
 
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeName = this.onChangeName.bind(this);
+    this.onChangeContactNumber = this.onChangeContactNumber.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
-    this.onChangecontactNumber = this.onChangecontactNumber.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
-      username: '',
-      name: '',
-      password: '',
-      contactNumber: '',
-      token:this.props.token,
-      res:''
-    }
+      username: "",
+      name: "",
+      password: "",
+      password2: "",
+      contactNumber: "",
+      token: this.props.token,
+      res: "",
+    };
   }
 
   onChangeUsername(e) {
-    this.setState({
-      username: e.target.value,
-      res:''
-    })
+    var newusername = e.target.value;
+    var pattern = /^[a-z0-9]*$/;
+    if(pattern.test(newusername)){
+      this.setState({username: e.target.value, res:""});
+    }
   }
 
   onChangeName(e) {
-    this.setState({
-      name: e.target.value,
-      res:''
-    })
+    var newname = e.target.value;
+    var pattern = /^[A-Za-z ]*$/;
+    if(pattern.test(newname)){
+      this.setState({name: e.target.value, res:""});
+    }
   }
 
-  onChangePassword(e) {
-    this.setState({
-      password: e.target.value,
-      res:''
-    })
+  onChangeContactNumber(e) {
+    var newnum = e.target.value;
+    var pattern = /^[0-9]*$/;
+    if(pattern.test(newnum)){
+      this.setState({contactNumber: e.target.value, res:""});
+    }
   }
 
-  onChangecontactNumber(e) {
-    this.setState({
-      contactNumber: e.target.value,
-      res:''
-    })
+  onChangePassword(int,e) {
+    if(int==1){
+      this.setState({password: e.target.value,res: ""});
+    }else{
+      this.setState({password2: e.target.value,res: ""});
+    }
   }
 
 
   onSubmit(e) {
     e.preventDefault();
-
-    const ETeam = {
-      username: this.state.username,
-      name: this.state.name,
-      password: this.state.password,
-      contactNumber: this.state.contactNumber,
-      sessionToken: this.state.token,
-    }
-
-    console.log(ETeam);
-
-    axios.post('http://localhost:5000/police/eteam/add', ETeam)
-      .then(res=>{
+    //validation
+    if(this.state.password===this.state.password2){
+      const eteam = {
+        username: this.state.username,
+        name: this.state.name,
+        password: this.state.password,
+        contactNumber: this.state.contactNumber,
+        sessionToken: this.state.token,
+      };
+      axios.post("http://localhost:5000/police/eteam/add", eteam).then((res) => {
         this.setState({
           res: res.data.message,
-          username: '',
-          name: '',
-          password: '',
-          contactNumber:''
+          username: "",
+          name: "",
+          password: "",
+          password2: "",
+          contactNumber: "",
+        });
+      });
+    }else{
+        this.setState({
+          res:"Passwords mismatched. Please re-check."
         })
-      })
+    }
+
+
+
 
   }
 
   render() {
     return (
-    <div>
-      <h3>Create New Emergency Team</h3>
-      <form onSubmit={this.onSubmit}>
-        <div className="form-group col-sm-3">
-          <label>Username: </label>
-          <input  type="text"
+      <div>
+        <h3>Create New Emergency Team</h3>
+        <form onSubmit={this.onSubmit}>
+        <div class="form-col">
+          <div className="form-group col-sm-9 col-md-7 col-lg-6 col-xl-4">
+            <label>Username: </label>
+            <input
+              type="text"
               required
               className="form-control"
               value={this.state.username}
               onChange={this.onChangeUsername}
-              minlength='4'
-              />
-        </div>
-        <div className="form-group col-sm-3">
+              minlength="4"
+              maxlength="15"
+            />
+          </div>
+          <div className="form-group col-sm-9 col-md-7 col-lg-6 col-xl-4">
             <label>Name: </label>
-            <input  type="text"
-                required
-                className="form-control"
-                value={this.state.name}
-                onChange={this.onChangeName}
-                />
-        </div>
-        <div className="form-group col-sm-3">
-          <label>Password: </label>
-          <input  type="password"
+            <input
+              type="text"
+              required
+              className="form-control"
+              value={this.state.name}
+              onChange={this.onChangeName}
+              minLength="5"
+              maxLength="30"
+            />
+          </div>
+          <div className="form-group col-sm-9 col-md-7 col-lg-6 col-xl-4">
+            <label>Contact Number: </label>
+            <input
+              type="text"
+              required
+              className="form-control"
+              value={this.state.contactNumber}
+              onChange={this.onChangeContactNumber}
+              minLength="3"
+              maxLength="10"
+            />
+          </div>
+          <div className="form-group col-sm-9 col-md-7 col-lg-6 col-xl-4">
+            <label>Password: </label>
+            <input
+              type="password"
               required
               className="form-control"
               value={this.state.password}
-              onChange={this.onChangePassword}
-              minlength='4'
-              />
-        </div>
-        <div className="form-group col-sm-3">
-        <label>Contact Number </label>
-        <input
-            type="text"
-            className="form-control"
-            value={this.state.contactNumber}
-            onChange={this.onChangecontactNumber}
+              onChange={(e) => this.onChangePassword(1,e)}
+              minlength="4"
+              maxLength="20"
             />
-        </div>
-
-        <div className="form-group col-sm-3">
-          <input type="submit" value="Create Team" className="btn btn-primary" />
-        </div>
-      </form>
-      <div>
-      {this.state.res}
+          </div>
+          <div className="form-group col-sm-9 col-md-7 col-lg-6 col-xl-4">
+            <label>Re-Enter Password: </label>
+            <input
+              type="password"
+              required
+              className="form-control"
+              value={this.state.password2}
+              onChange={(e) => this.onChangePassword(2,e)}
+              minlength="4"
+              maxLength="20"
+            />
+          </div>
+          <div className="form-group col-sm-9 col-md-7 col-lg-6 col-xl-4">
+            <input
+              type="submit"
+              value="Create Emergency Team"
+              className="btn btn-primary"
+            />
+          </div>
+          </div>
+        </form>
+        <div>{this.state.res}</div>
       </div>
-    </div>
-    )
+    );
   }
 }

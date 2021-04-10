@@ -19,7 +19,6 @@ import {
 
 import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
-import Loading from "./common/loading";
 
 const Accident = (props) => {
   if (props.accident.id === props.edit_id) {
@@ -465,7 +464,6 @@ export default class AccidentList extends Component {
       loading: true,
       pageSize: this.props.pageSize,
       currentPage: 1,
-      updateFlag: true
     };
   }
 
@@ -815,27 +813,8 @@ export default class AccidentList extends Component {
   render() {
     const { length: count } = this.state.accidentlist;
     const { pageSize, currentPage, accidentlist: allAccident } = this.state;
-<<<<<<< HEAD
 
-    if (count === 0)
-      return (
-        <div className="loading">
-          <svg>
-            <circle
-              r="40"
-              cx="150"
-              cy="75"
-              stroke="#999"
-              stroke-width="10px"
-              fill="none"
-            />
-          </svg>
-        </div>
-      );
-=======
-    if(this.state.updateFlag) return <Loading/>
     if (count === 0) return <p>There are no Accidents in the database</p>;
->>>>>>> 4729f5d0654eab4f195742b97b10d86226fa5163
 
     const accidents = paginate(allAccident, currentPage, pageSize);
     return (

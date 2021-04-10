@@ -2,7 +2,7 @@ import React from "react";
 
 import AddPolice from "./addpolice.component.js";
 import AddETeam from "./addeteam.component.js";
-import RemoveETeam from "./removeeteam.component.js";
+import ETeamList from "./eteamlist.component.js";
 import AccidentSubmission from "./accidentsubmission.component.js";
 import AccidentList from "./accidentlist.component.js";
 import EventSubmission from "./eventsubmission.component.js";
@@ -55,8 +55,8 @@ export default class Content extends React.Component {
         return <AddPolice token={this.props.token} />;
       case "addeteam":
         return <AddETeam token={this.props.token} />;
-      case "removeeteam":
-        return <RemoveETeam token={this.props.token} pageSize={pageSize} />;
+      case "eteamlist":
+        return <ETeamList token={this.props.token} pageSize={pageSize} />;
       case "accidentsubmission":
         return (
           <AccidentSubmission

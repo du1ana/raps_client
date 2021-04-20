@@ -4,7 +4,7 @@ import logo from "../icons/icon.png";
 import { Navbar, Nav, NavItem, Dropdown, NavLink } from 'react-bootstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faUser, faUserPlus, faPlus, faAmbulance, faCarCrash, faListAlt, faExclamationTriangle, faEnvelopeOpenText,faCalendarAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import {faUser, faUserPlus, faPlus, faAmbulance, faCarCrash, faListAlt, faExclamationTriangle, faEnvelopeOpenText,faCalendarAlt, faSignOutAlt, faCog, faUserLock } from '@fortawesome/free-solid-svg-icons'
 
 export default class Navbar2 extends Component {
   constructor(props) {
@@ -139,15 +139,29 @@ export default class Navbar2 extends Component {
 
           </Nav>
           <Nav className="ml-auto">
-            <div as={NavItem}>
-                <button
-                  onClick={this.LogOut.bind(this, token)}
-                  className="btn btn-outline-danger text-secondary"
-                >
-                <FontAwesomeIcon icon={faSignOutAlt} />
-                <span className="nav_item_label_log_out"> Log Out </span>
+          <Dropdown as={NavItem}>
+            <Dropdown.Toggle as={NavLink}>
+            <FontAwesomeIcon icon={faCog} />&nbsp;
+              <span className="nav_item_label"> </span>
+            </Dropdown.Toggle>
+            <Dropdown.Menu alignRight>
+              <Dropdown.Item>
+                  <button
+                    onClick={this.LogOut.bind(this, token)}
+                    className="btn text-danger"
+                  >
+                  <FontAwesomeIcon icon={faSignOutAlt} />
+                  <span> Log Out </span>
+                  </button>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <button onClick={() => this.props.handleNavigation("changepassword")} className="btn">
+                  <FontAwesomeIcon icon={faUserLock} />&nbsp;
+                   Change password
                 </button>
-            </div>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
           </Nav>
       </Navbar>
     );

@@ -61,11 +61,11 @@ export default class Home extends Component {
   }
 
   handleSignIn(adminRights,token) {
-    this.setState({ signedin: true, adminRights: adminRights, token: token });
+    this.setState({ signedin: true, adminRights: adminRights, token: token, nav:"accidentsubmission" });
   }
 
   handleLogOut(str) {
-    this.setState({ signedin: false, adminRights: null, token: null });
+    this.setState({ signedin: false, adminRights: null, token: null, nav:"accidentsubmission" });
   }
 
 

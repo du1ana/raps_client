@@ -44,7 +44,7 @@ const ETeam = (props) => {
             onChange={props.onChangeContactNumber}
           />
         </td>
-        <td>{props.eteam.availability? (suburb? suburb: "Available")+" ("+props.eteam.lat+","+props.eteam.lng+")" : "Unvailable"}</td>
+        <td>{props.eteam.availability&&props.eteam.lat!=0 &&props.eteam.lng!=0? (suburb? suburb: "")+" ("+props.eteam.lat+","+props.eteam.lng+")" : "-"}</td>
         <td>
           <button
             type="submit"
@@ -78,7 +78,7 @@ const ETeam = (props) => {
         <td>{props.eteam.username}</td>
         <td>{props.eteam.name}</td>
         <td>{props.eteam.contactNumber}</td>
-        <td>{props.eteam.availability? (suburb? suburb: "Available")+" ("+props.eteam.lat+","+props.eteam.lng+")" : "Unvailable"}</td>
+        <td>{props.eteam.availability&&props.eteam.lat!=0 &&props.eteam.lng!=0? (suburb? suburb: "")+" ("+props.eteam.lat+","+props.eteam.lng+")" : "-"}</td>
         <td>
           <button
             className="btn btn-sm btn-info"
@@ -273,7 +273,7 @@ export default class ETeamList extends Component {
               <th>Username</th>
               <th>Name</th>
               <th>Contact Number</th>
-              <th>Position</th>
+              <th>Location</th>
               <th>Actions</th>
             </tr>
           </thead>

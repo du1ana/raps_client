@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "../utils/axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -236,7 +236,7 @@ export default class AccidentSubmission extends Component {
       const d = new Date();
 
       axios
-        .post("http://localhost:5000/accident/submit", accident)
+        .post("accident/submit", accident)
         .then((res) => {
           console.log("submit res:");
           console.log(res);

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "../utils/axios";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -127,7 +127,7 @@ export default class PoliceList extends Component {
   }
 
   getList = async () => {
-    let res = await axios.get("http://localhost:5000/police/list");
+    let res = await axios.get("police/list");
     this.setState({ policelist: res.data.data, updateFlag: false });
     console.log("state_set:");
     console.log(res.data.data);
@@ -142,7 +142,7 @@ export default class PoliceList extends Component {
 
   async deletePolice(username) {
     await axios
-      .delete("http://localhost:5000/police/delete/", {
+      .delete("police/delete/", {
         data: { username: username, sessionToken: this.props.token },
       })
       .then((response) => {
@@ -157,7 +157,7 @@ export default class PoliceList extends Component {
 
   async updatePolice(username, name, adminRights) {
     await axios
-      .post("http://localhost:5000/police/update/", {
+      .post("police/update/", {
         username: username,
         name: name,
         adminRights: adminRights,
@@ -241,17 +241,8 @@ export default class PoliceList extends Component {
     if (this.state.updateFlag) return <Loading />;
     if (count === 0)
       return (
-        <div className="loading">
-          <svg>
-            <circle
-              r="40"
-              cx="150"
-              cy="75"
-              stroke="#999"
-              stroke-width="10px"
-              fill="none"
-            />
-          </svg>
+        <div>
+          <p>No police users available.</p>
         </div>
       );
 

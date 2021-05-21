@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "../utils/axios";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,6 +15,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
+import Loading from "./common/loading";
 
 const Holiday = (props) => {
   if (props.holiday.id === props.edit_id) {
@@ -125,6 +126,7 @@ export default class HolidayList extends Component {
       res: "",
       pageSize: this.props.pageSize,
       currentPage: 1,
+      updateFlag: true
     };
   }
 
@@ -137,7 +139,7 @@ export default class HolidayList extends Component {
   }
 
   getList = async () => {
-    let res = await axios.get("http://localhost:5000/holiday/list");
+    let res = await axios.get("holiday/list");
     this.setState({ holidaylist: res.data.data, updateFlag: false });
     console.log("state_set:");
     console.log(res.data.data);
@@ -152,7 +154,7 @@ export default class HolidayList extends Component {
 
   async deleteHoliday(id) {
     await axios
-      .delete("http://localhost:5000/holiday/delete/", {
+      .delete("holiday/delete/", {
         data: { id: id, sessionToken: this.props.token },
       })
       .then((response) => {
@@ -167,7 +169,7 @@ export default class HolidayList extends Component {
 
   async updateHoliday(id, name, date) {
     await axios
-      .post("http://localhost:5000/holiday/update/", {
+      .post("holiday/update/", {
         id: id,
         name: name,
         date: date,
@@ -254,7 +256,7 @@ export default class HolidayList extends Component {
         sessionToken: this.state.token,
       };
       await axios
-        .post("http://localhost:5000/holiday/add", holiday)
+        .post("holiday/add", holiday)
         .then((res) => {
           document.getElementById("holiday-report-form").reset();
           this.setState({
@@ -290,22 +292,8 @@ export default class HolidayList extends Component {
   render() {
     const { length: count } = this.state.holidaylist;
     const { pageSize, currentPage, holidaylist: allHolidays } = this.state;
-
-    if (count === 0)
-      return (
-        <div className="loading">
-          <svg>
-            <circle
-              r="40"
-              cx="150"
-              cy="75"
-              stroke="#999"
-              stroke-width="10px"
-              fill="none"
-            />
-          </svg>
-        </div>
-      );
+    if (this.state.updateFlag) return <Loading />;
+    if ( count === 0) return <p>There are no Public Holidays in the database</p>;
 
     const holidays = paginate(allHolidays, currentPage, pageSize);
 

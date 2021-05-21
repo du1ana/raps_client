@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "../utils/axios";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -478,7 +478,7 @@ export default class AccidentList extends Component {
   }
 
   getList = async () => {
-    let res = await axios.get("http://localhost:5000/accident/list");
+    let res = await axios.get("accident/list");
     this.setState({ accidentlist: res.data.data, updateFlag: false });
     console.log("state_set:");
     console.log(res.data.data);
@@ -493,7 +493,7 @@ export default class AccidentList extends Component {
 
   async deleteAccident(id) {
     await axios
-      .delete("http://localhost:5000/accident/delete/", {
+      .delete("accident/delete/", {
         data: { id: id, sessionToken: this.props.token },
       })
       .then((response) => {
@@ -538,7 +538,7 @@ export default class AccidentList extends Component {
     console.log("update datetime:");
     console.log(datetime);
     await axios
-      .post("http://localhost:5000/accident/update/", {
+      .post("accident/update/", {
         id: id,
         datetime: datetime,
         driverAge: driverAge,

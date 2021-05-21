@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "../utils/axios";
 
 export default class ChangePassword extends Component {
   constructor(props) {
@@ -37,7 +37,7 @@ export default class ChangePassword extends Component {
         newpassword: this.state.password,
         sessionToken: this.state.token
       };
-      axios.post("http://localhost:5000/police/changepassword", body).then((res) => {
+      axios.post("police/changepassword", body).then((res) => {
         this.setState({
           res: res.data.message,
           oldpassword: "",

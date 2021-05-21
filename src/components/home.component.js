@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios from "../utils/axios";
 import logo from "../icons/icon.png";
 
 import Navbar from "./navbar.component";
@@ -35,7 +35,7 @@ export default class Home extends Component {
     const token = getFromStorage("road_accident_prevention_system_webtoken");
     console.log("token:" + token);
     axios
-      .get("http://localhost:5000/police/verifysession/", {
+      .get("police/verifysession/", {
         params: { token: token },
       })
       .then((response) => response.data)

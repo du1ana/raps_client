@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "../utils/axios";
 import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
 
@@ -38,7 +38,7 @@ export default class ETeamList extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/police/eteam/list")
+      .get("police/eteam/list")
       .then((response) => {
         this.setState({ eTeamlist: response.data.data });
         console.log(response.data.data);
@@ -50,7 +50,7 @@ export default class ETeamList extends Component {
 
   deleteETeam(username) {
     axios
-      .delete("http://localhost:5000/police/eteam/delete/", {
+      .delete("police/eteam/delete/", {
         data: { username: username, sessionToken: this.props.token },
       })
       .then((response) => {

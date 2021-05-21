@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "../utils/axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -147,7 +147,7 @@ export default class EventSubmission extends Component {
 
       const d = new Date();
 
-      axios.post("http://localhost:5000/event/submit", event).then((res) => {
+      axios.post("event/submit", event).then((res) => {
         document.getElementById("event-report-from").reset();
         this.setState({
           res: res.data.message,

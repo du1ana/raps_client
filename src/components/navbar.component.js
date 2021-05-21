@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "../utils/axios";
 import logo from "../icons/icon.png";
 import { Navbar, Nav, NavItem, Dropdown, NavLink } from 'react-bootstrap';
 
@@ -18,7 +18,7 @@ export default class Navbar2 extends Component {
     //window.location.reload(true);
 
     axios
-      .get("http://localhost:5000/police/logout/", { params: { token: t } })
+      .get("police/logout/", { params: { token: t } })
       .then((response) => response.data)
       .then((data) => {
         if(data.success){

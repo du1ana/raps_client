@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "../utils/axios";
 
 import { getLocalDate, getLocalTime } from "../utils/displayformat";
 import "./css/modal.css";
@@ -10,6 +10,7 @@ import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
 import { findNearestExit } from "../utils/location";
 import { getSuburbInt, getKmPost } from "../utils/displayformat";
+import Loading from "./common/loading";
 
 const Incident = (props) => (
   <tr>
@@ -138,7 +139,7 @@ export default class ValidateIncident extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/incident/list")
+      .get("incident/list")
       .then((response) => {
         this.setState({ incidentlist: response.data.data });
         console.log(response.data.data);
@@ -214,7 +215,7 @@ export default class ValidateIncident extends Component {
 
   deleteIncident(id) {
     axios
-      .delete("http://localhost:5000/incident/police/delete/", {
+      .delete("incident/police/delete/", {
         data: { id: id, sessionToken: this.props.token },
       })
       .then((response) => {
@@ -265,20 +266,7 @@ export default class ValidateIncident extends Component {
     const { pageSize, currentPage, incidentlist: allIncident } = this.state;
 
     if (count === 0)
-      return (
-        <div className="loading">
-          <svg>
-            <circle
-              r="40"
-              cx="150"
-              cy="75"
-              stroke="#999"
-              stroke-width="10px"
-              fill="none"
-            />
-          </svg>
-        </div>
-      );
+      return <Loading />;
 
     const incidents = paginate(allIncident, currentPage, pageSize);
 

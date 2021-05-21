@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "../utils/axios";
 import "./css/signin.component.css";
 import { Container, Row, Col } from "react-bootstrap";
 import SVGsign from "../Assets/signin1.svg";
@@ -145,19 +145,21 @@ export default class Signin extends Component {
 
   onTextboxChangeUsername(event) {
     const valid = event.target.value.length >= 4; //length check
+    const psw_valid = this.state.signInPassword.length >= 4; //length check
     this.setState({
       signInUsername: event.target.value,
       validUsername: valid,
-      activateSubmit: this.state.signInPassword && valid,
+      activateSubmit: psw_valid && valid,
     });
   }
 
   onTextboxChangePassword(event) {
     const valid = event.target.value.length >= 4; //length check
+    const uname_valid = this.state.signInUsername.length >= 4; //length check
     this.setState({
       signInPassword: event.target.value,
       validPassword: valid,
-      activateSubmit: this.state.signInUsername && valid,
+      activateSubmit: uname_valid && valid,
     });
   }
 

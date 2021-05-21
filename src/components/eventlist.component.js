@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "../utils/axios";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -254,7 +254,7 @@ export default class EventList extends Component {
   }
 
   getList = async () => {
-    let res = await axios.get("http://localhost:5000/event/list");
+    let res = await axios.get("event/list");
     this.setState({ eventlist: res.data.data, updateFlag: false });
     console.log("state_set:");
     console.log(res.data.data);
@@ -269,7 +269,7 @@ export default class EventList extends Component {
 
   async deleteEvent(id) {
     await axios
-      .delete("http://localhost:5000/event/delete/", {
+      .delete("event/delete/", {
         data: { id: id, sessionToken: this.props.token },
       })
       .then((response) => {
@@ -307,7 +307,7 @@ export default class EventList extends Component {
     console.log("Update req:");
     console.log(id + " " + datetime + " " + type);
     await axios
-      .post("http://localhost:5000/event/update/", {
+      .post("event/update/", {
         id: id,
         datetime: datetime,
         type: type,

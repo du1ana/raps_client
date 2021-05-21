@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "../utils/axios";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -135,7 +135,7 @@ export default class ETeamList extends Component {
   }
 
   getList = async () => {
-    let res = await axios.get("http://localhost:5000/eteam/list");
+    let res = await axios.get("eteam/list");
     this.setState({ eteamlist: res.data.data, updateFlag: false });
     console.log("state_set:");
     console.log(res.data.data);
@@ -150,7 +150,7 @@ export default class ETeamList extends Component {
 
   async deleteETeam(username) {
     await axios
-      .delete("http://localhost:5000/police/eteam/delete/", {
+      .delete("police/eteam/delete/", {
         data: { username: username, sessionToken: this.props.token },
       })
       .then((response) => {
@@ -166,7 +166,7 @@ export default class ETeamList extends Component {
   async updateETeam(username, name, contactNumber) {
 
     await axios
-      .post("http://localhost:5000/police/eteam/update/", {
+      .post("police/eteam/update/", {
         username: username,
         name: name,
         contactNumber: contactNumber,

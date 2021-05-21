@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "../utils/axios";
 
 export default class AddPolice extends Component {
   constructor(props) {
@@ -66,7 +66,7 @@ export default class AddPolice extends Component {
         contactNumber: this.state.contactNumber,
         sessionToken: this.state.token,
       };
-      axios.post("http://localhost:5000/police/eteam/add", eteam).then((res) => {
+      axios.post("police/eteam/add", eteam).then((res) => {
         this.setState({
           res: res.data.message,
           username: "",

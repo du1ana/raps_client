@@ -48,15 +48,6 @@ export default class Signin extends Component {
       activateSubmit,
     } = this.state;
 
-    if (isLoading) {
-      return (
-        <div className="loading">
-          <svg>
-            <circle r="40" cx="150" cy="75" stroke="#999" stroke-width="10px" fill="none"/>
-          </svg>
-        </div>
-      );
-    }
 
     if (!token) {
       console.log("!token exec")

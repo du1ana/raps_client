@@ -31,7 +31,7 @@ export default class Signin extends Component {
 
   componentDidMount() {
     const token = getFromStorage("road_accident_prevention_system_webtoken");
-
+    console.log("token_received:"+token)
     if (token) {
       //verify token
       this.setState({ isLoading: false });
@@ -59,6 +59,7 @@ export default class Signin extends Component {
     }
 
     if (!token) {
+      console.log("!token exec")
       return (
         <div className="content">
           <div className="background">

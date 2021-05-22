@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/raps/static/css/main.5cc2f567.chunk.css",
-    "main.js": "/raps/static/js/main.4af2ca5e.chunk.js",
-    "main.js.map": "/raps/static/js/main.4af2ca5e.chunk.js.map",
-    "runtime-main.js": "/raps/static/js/runtime-main.ed0ecaec.js",
-    "runtime-main.js.map": "/raps/static/js/runtime-main.ed0ecaec.js.map",
-    "static/css/2.2ff7516b.chunk.css": "/raps/static/css/2.2ff7516b.chunk.css",
-    "static/js/2.49e9ea61.chunk.js": "/raps/static/js/2.49e9ea61.chunk.js",
-    "static/js/2.49e9ea61.chunk.js.map": "/raps/static/js/2.49e9ea61.chunk.js.map",
-    "index.html": "/raps/index.html",
-    "static/css/2.2ff7516b.chunk.css.map": "/raps/static/css/2.2ff7516b.chunk.css.map",
-    "static/css/main.5cc2f567.chunk.css.map": "/raps/static/css/main.5cc2f567.chunk.css.map",
-    "static/js/2.49e9ea61.chunk.js.LICENSE.txt": "/raps/static/js/2.49e9ea61.chunk.js.LICENSE.txt",
-    "static/media/icon.ea2967a8.png": "/raps/static/media/icon.ea2967a8.png",
-    "static/media/signin1.9dc61341.svg": "/raps/static/media/signin1.9dc61341.svg",
-    "static/media/signin.component.css": "/raps/static/media/wave.0a52dcec.svg"
+    "main.css": "/raps_client/static/css/main.eee5c001.chunk.css",
+    "main.js": "/raps_client/static/js/main.eb935bdb.chunk.js",
+    "main.js.map": "/raps_client/static/js/main.eb935bdb.chunk.js.map",
+    "runtime-main.js": "/raps_client/static/js/runtime-main.a12d1c10.js",
+    "runtime-main.js.map": "/raps_client/static/js/runtime-main.a12d1c10.js.map",
+    "static/css/2.2ff7516b.chunk.css": "/raps_client/static/css/2.2ff7516b.chunk.css",
+    "static/js/2.40b68e95.chunk.js": "/raps_client/static/js/2.40b68e95.chunk.js",
+    "static/js/2.40b68e95.chunk.js.map": "/raps_client/static/js/2.40b68e95.chunk.js.map",
+    "index.html": "/raps_client/index.html",
+    "static/css/2.2ff7516b.chunk.css.map": "/raps_client/static/css/2.2ff7516b.chunk.css.map",
+    "static/css/main.eee5c001.chunk.css.map": "/raps_client/static/css/main.eee5c001.chunk.css.map",
+    "static/js/2.40b68e95.chunk.js.LICENSE.txt": "/raps_client/static/js/2.40b68e95.chunk.js.LICENSE.txt",
+    "static/media/icon.ea2967a8.png": "/raps_client/static/media/icon.ea2967a8.png",
+    "static/media/signin1.9dc61341.svg": "/raps_client/static/media/signin1.9dc61341.svg",
+    "static/media/signin.component.css": "/raps_client/static/media/wave.0a52dcec.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.ed0ecaec.js",
+    "static/js/runtime-main.a12d1c10.js",
     "static/css/2.2ff7516b.chunk.css",
-    "static/js/2.49e9ea61.chunk.js",
-    "static/css/main.5cc2f567.chunk.css",
-    "static/js/main.4af2ca5e.chunk.js"
+    "static/js/2.40b68e95.chunk.js",
+    "static/css/main.eee5c001.chunk.css",
+    "static/js/main.eb935bdb.chunk.js"
   ]
 }

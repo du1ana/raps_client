@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/raps_client/static/css/main.eee5c001.chunk.css",
-    "main.js": "/raps_client/static/js/main.73fd2b41.chunk.js",
-    "main.js.map": "/raps_client/static/js/main.73fd2b41.chunk.js.map",
+    "main.js": "/raps_client/static/js/main.bf7e0d21.chunk.js",
+    "main.js.map": "/raps_client/static/js/main.bf7e0d21.chunk.js.map",
     "runtime-main.js": "/raps_client/static/js/runtime-main.a12d1c10.js",
     "runtime-main.js.map": "/raps_client/static/js/runtime-main.a12d1c10.js.map",
     "static/css/2.2ff7516b.chunk.css": "/raps_client/static/css/2.2ff7516b.chunk.css",
@@ -21,6 +21,6 @@
     "static/css/2.2ff7516b.chunk.css",
     "static/js/2.40b68e95.chunk.js",
     "static/css/main.eee5c001.chunk.css",
-    "static/js/main.73fd2b41.chunk.js"
+    "static/js/main.bf7e0d21.chunk.js"
   ]
 }

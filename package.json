@@ -1,5 +1,5 @@
 {
-  "homepage": "https://du1ana.github.io/raps_client/",
+  "homepage": "https://raps-webapp.herokuapp.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

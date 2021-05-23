@@ -56,6 +56,9 @@ export default class AddPolice extends Component {
 
 
   onSubmit(e) {
+    this.setState({
+      isProcessing: true,
+    })
     e.preventDefault();
     //validation
     if(this.state.password===this.state.password2){
@@ -66,6 +69,9 @@ export default class AddPolice extends Component {
         contactNumber: this.state.contactNumber,
         sessionToken: this.state.token,
       };
+      this.setState({
+        isProcessing: true,
+      })
       axios.post("police/eteam/add", eteam).then((res) => {
         this.setState({
           res: res.data.message,
@@ -74,11 +80,13 @@ export default class AddPolice extends Component {
           password: "",
           password2: "",
           contactNumber: "",
+          isProcessing: false
         });
       });
     }else{
         this.setState({
-          res:"Passwords mismatched. Please re-check."
+          res:"Passwords mismatched. Please re-check.",
+          isProcessing: false
         })
     }
 
@@ -158,6 +166,7 @@ export default class AddPolice extends Component {
               type="submit"
               value="Create Emergency Team"
               className="btn btn-primary"
+              disabled={this.state.isProcessing}
             />
           </div>
           </div>

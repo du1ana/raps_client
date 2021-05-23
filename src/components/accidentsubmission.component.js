@@ -235,6 +235,10 @@ export default class AccidentSubmission extends Component {
 
       const d = new Date();
 
+      this.setState({
+        isProcessing: true,
+      })
+
       axios
         .post("accident/submit", accident)
         .then((res) => {
@@ -259,6 +263,7 @@ export default class AccidentSubmission extends Component {
             suburb: 0,
             operatedSpeed: 0,
             vehicle_condition: false,
+            isProcessing: false
           });
         });
     }
@@ -536,6 +541,7 @@ export default class AccidentSubmission extends Component {
                   value={this.state.operatedSpeed}
                   onChange={this.onChangeOperatedSpeed}
                   min="0"
+                  max="200"
                 />
               </div>
             </div>
@@ -547,6 +553,7 @@ export default class AccidentSubmission extends Component {
                 value="Submit Report"
                 onSubmit={this.onSubmit}
                 className="btn btn-primary"
+                disabled={this.state.isProcessing}
               />{" "}
               {this.state.res}
               <div></div>

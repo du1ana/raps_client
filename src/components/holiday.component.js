@@ -255,6 +255,9 @@ export default class HolidayList extends Component {
         name: this.state.name,
         sessionToken: this.state.token,
       };
+      this.setState({
+        isProcessing: true,
+      })
       await axios
         .post("holiday/add", holiday)
         .then((res) => {
@@ -263,6 +266,7 @@ export default class HolidayList extends Component {
             res: res.data.message,
             holidayDate: d,
             name: "",
+            isProcessing:false
           });
         });
     }
@@ -349,6 +353,7 @@ export default class HolidayList extends Component {
                       value="Add holiday"
                       onSubmit={this.onSubmit}
                       className="btn btn-primary"
+                      disabled={this.state.isProcessing}
                     />{" "}
                     {this.state.res}
                     <div>

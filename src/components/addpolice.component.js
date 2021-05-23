@@ -64,6 +64,9 @@ export default class AddPolice extends Component {
         adminRights: this.state.adminRights,
         sessionToken: this.state.token,
       };
+      this.setState({
+        isProcessing: true,
+      })
       axios.post("police/signup", police).then((res) => {
         this.setState({
           res: res.data.message,
@@ -72,6 +75,7 @@ export default class AddPolice extends Component {
           password: "",
           password2: "",
           adminRights: false,
+          isProcessing: false
         });
       });
     }else{
@@ -153,6 +157,7 @@ export default class AddPolice extends Component {
               type="submit"
               value="Create User"
               className="btn btn-primary"
+              disabled={this.state.isProcessing}
             />
           </div>
           </div>

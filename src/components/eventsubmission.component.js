@@ -147,6 +147,10 @@ export default class EventSubmission extends Component {
 
       const d = new Date();
 
+      this.setState({
+        isProcessing: true,
+      })
+
       axios.post("event/submit", event).then((res) => {
         document.getElementById("event-report-from").reset();
         this.setState({
@@ -158,6 +162,7 @@ export default class EventSubmission extends Component {
           severity: 0,
           kmPost: 0,
           suburb: 0,
+          isProcessing:false
         });
       });
     }
@@ -310,6 +315,7 @@ export default class EventSubmission extends Component {
                 type="submit"
                 value="Submit Report"
                 onSubmit={this.onSubmit}
+                disabled={this.state.isProcessing}
                 className="btn btn-primary"
               />{" "}
               {this.state.res}

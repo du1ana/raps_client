@@ -26,6 +26,7 @@ export default class Signin extends Component {
       validUsername: false,
       validPassword: false,
       activateSubmit: false,
+      isProcessing:false
     };
   }
 
@@ -113,7 +114,7 @@ export default class Signin extends Component {
                         </form>
                         <button
                           className="btn btn-signin btn-block signin"
-                          disabled={!activateSubmit}
+                          disabled={!activateSubmit || this.state.isProcessing}
                           onClick={this.onSignin}
                         >
                           Sign in
@@ -156,10 +157,13 @@ export default class Signin extends Component {
   }
 
   onSignin() {
+    this.setState({
+      isProcessing: true,
+    })
     //post request sigin in
 
     axios
-      .post("http://localhost:5000/police/signin", {
+      .post("police/signin", {
         username: this.state.signInUsername,
         password: this.state.signInPassword,
       })
@@ -171,6 +175,7 @@ export default class Signin extends Component {
         } else {
           this.setState({
             signInError: json.message,
+            isProcessing: false
           });
         }
       });

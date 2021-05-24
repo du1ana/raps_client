@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "../utils/axios";
-
+import Swal from "sweetalert2";
 export default class ChangePassword extends Component {
   constructor(props) {
     super(props);
@@ -30,6 +30,9 @@ export default class ChangePassword extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+    this.setState({
+      isProcessing: true,
+    })
     //validation
     if(this.state.password===this.state.password2){
       const body = {
@@ -38,11 +41,27 @@ export default class ChangePassword extends Component {
         sessionToken: this.state.token
       };
       axios.post("police/changepassword", body).then((res) => {
+        if (res.data.success === false) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: res.data.message
+        });
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: res.data.message,
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      }
         this.setState({
           res: res.data.message,
           oldpassword: "",
           password: "",
-          password2: ""
+          password2: "",
+          isProcessing: false
         });
       });
     }else{
@@ -103,6 +122,7 @@ export default class ChangePassword extends Component {
               type="submit"
               value="Change Password"
               className="btn btn-primary"
+              disabled={this.state.isProcessing}
             />
           </div>
           </div>

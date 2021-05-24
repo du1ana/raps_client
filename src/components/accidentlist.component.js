@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "../utils/axios";
-
+import Swal from "sweetalert2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCarCrash,
@@ -420,7 +420,19 @@ const Accident = (props) => {
           <button
             className="btn btn-sm btn-danger"
             onClick={() => {
-              props.deleteAccident(props.accident.id);
+              Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  props.deleteAccident(props.accident.id);
+                }
+              });
             }}
           >
             <FontAwesomeIcon icon={faTrashAlt} />
@@ -496,8 +508,23 @@ export default class AccidentList extends Component {
       .delete("accident/delete/", {
         data: { id: id, sessionToken: this.props.token },
       })
-      .then((response) => {
-        console.log(response.data);
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.success === false) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: res.data.message,
+          });
+        } else {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: res.data.message,
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        }
       });
 
     this.setState({
@@ -525,6 +552,15 @@ export default class AccidentList extends Component {
     operatedSpeed,
     vehicle_condition
   ) {
+    if(!accidentDate || !accidentTime || !driverAge || 17>driverAge || driverAge>76 || !licenseIssueDate || !vehicleYOM || !operatedSpeed ||  0>operatedSpeed || operatedSpeed>200 || !kmPost || 0>kmPost || kmPost>127){
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Invalid data",
+      });
+      return;
+
+    }
     console.log("Update date format");
     const accDate = new Date(accidentDate);
     const datetime = new Date(
@@ -559,6 +595,21 @@ export default class AccidentList extends Component {
       })
       .then((response) => {
         console.log(response.data);
+        if (response.data.success === false) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: response.data.message,
+          });
+        } else {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: response.data.message,
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        }
       });
     this.setState({
       updateFlag: true,
@@ -634,6 +685,7 @@ export default class AccidentList extends Component {
   refresh() {
     this.setState({
       updateFlag: true,
+      currentPage:1
     });
   }
 

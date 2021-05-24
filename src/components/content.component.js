@@ -67,7 +67,7 @@ export default class Content extends React.Component {
           />
         );
       case "accidentlist":
-        return <AccidentList token={this.props.token} pageSize={pageSize/2 +1} />;
+        return <AccidentList token={this.props.token} pageSize={pageSize} />;
       case "eventsubmission":
         return (
           <EventSubmission

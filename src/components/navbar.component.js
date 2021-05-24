@@ -45,14 +45,14 @@ export default class Navbar2 extends Component {
               <span className="nav_item_label"> Police </span>
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item>
-                <button onClick={() => this.props.handleNavigation("addpolice")} className="dropdown-item">
+              <Dropdown.Item onClick={() => this.props.handleNavigation("addpolice")}>
+                <button className="dropdown-item">
                   <FontAwesomeIcon icon={faUserPlus} />&nbsp;
                   Add User
                 </button>
               </Dropdown.Item>
-              <Dropdown.Item>
-                <button onClick={() => this.props.handleNavigation("policelist")} className="dropdown-item">
+              <Dropdown.Item onClick={() => this.props.handleNavigation("policelist")}>
+                <button className="dropdown-item">
                   <FontAwesomeIcon icon={faListAlt} />&nbsp;
                   User List
                 </button>
@@ -66,14 +66,14 @@ export default class Navbar2 extends Component {
               <span className="nav_item_label"> Emergency Teams </span>
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item>
-                <button onClick={() => this.props.handleNavigation("addeteam")} className="dropdown-item">
+              <Dropdown.Item onClick={() => this.props.handleNavigation("addeteam")}>
+                <button className="dropdown-item">
                   <FontAwesomeIcon icon={faUserPlus} />&nbsp;
                   Add Emergency Team
                 </button>
               </Dropdown.Item>
-              <Dropdown.Item>
-                <button onClick={() => this.props.handleNavigation("eteamlist")} className="dropdown-item">
+              <Dropdown.Item onClick={() => this.props.handleNavigation("eteamlist")}>
+                <button className="dropdown-item">
                   <FontAwesomeIcon icon={faListAlt} />&nbsp;
                   Emergency Team List
                 </button>
@@ -87,14 +87,14 @@ export default class Navbar2 extends Component {
               <span className="nav_item_label"> Accidents </span>
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item>
-                <button onClick={() => this.props.handleNavigation("accidentsubmission")} className="dropdown-item">
+              <Dropdown.Item onClick={() => this.props.handleNavigation("accidentsubmission")}>
+                <button className="dropdown-item">
                   <FontAwesomeIcon icon={faPlus} />&nbsp;
                   Accident Submission
                 </button>
               </Dropdown.Item>
-              <Dropdown.Item>
-                <button onClick={() => this.props.handleNavigation("accidentlist")} className="dropdown-item">
+              <Dropdown.Item onClick={() => this.props.handleNavigation("accidentlist")}>
+                <button className="dropdown-item">
                   <FontAwesomeIcon icon={faListAlt} />&nbsp;
                   Accident List
                 </button>
@@ -108,14 +108,14 @@ export default class Navbar2 extends Component {
               <span className="nav_item_label"> Events </span>
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item>
-                <button onClick={() => this.props.handleNavigation("eventsubmission")} className="dropdown-item">
+              <Dropdown.Item onClick={() => this.props.handleNavigation("eventsubmission")}>
+                <button className="dropdown-item">
                   <FontAwesomeIcon icon={faPlus} />&nbsp;
                   Event Submission
                 </button>
               </Dropdown.Item>
-              <Dropdown.Item>
-                <button onClick={() => this.props.handleNavigation("eventlist")} className="dropdown-item">
+              <Dropdown.Item onClick={() => this.props.handleNavigation("eventlist")}>
+                <button className="dropdown-item">
                   <FontAwesomeIcon icon={faListAlt} />&nbsp;
                   Event List
                 </button>
@@ -145,17 +145,16 @@ export default class Navbar2 extends Component {
               <span className="nav_item_label"> </span>
             </Dropdown.Toggle>
             <Dropdown.Menu alignRight>
-              <Dropdown.Item>
+              <Dropdown.Item onClick={this.LogOut.bind(this, token)}>
                   <button
-                    onClick={this.LogOut.bind(this, token)}
                     className="btn text-danger"
                   >
                   <FontAwesomeIcon icon={faSignOutAlt} />
                   <span> Log Out </span>
                   </button>
               </Dropdown.Item>
-              <Dropdown.Item>
-                <button onClick={() => this.props.handleNavigation("changepassword")} className="btn">
+              <Dropdown.Item onClick={() => this.props.handleNavigation("changepassword")}>
+                <button className="btn">
                   <FontAwesomeIcon icon={faUserLock} />&nbsp;
                    Change password
                 </button>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "../utils/axios";
-
+import Swal from "sweetalert2";
 export default class AddPolice extends Component {
   constructor(props) {
     super(props);
@@ -68,6 +68,21 @@ export default class AddPolice extends Component {
         isProcessing: true,
       })
       axios.post("police/signup", police).then((res) => {
+        if (res.data.success === false) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: res.data.message
+        });
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: res.data.message,
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      }
         this.setState({
           res: res.data.message,
           username: "",

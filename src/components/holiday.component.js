@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "../utils/axios";
-
+import Swal from "sweetalert2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarAlt,
@@ -84,7 +84,19 @@ const Holiday = (props) => {
           <button
             className="btn btn-sm btn-danger"
             onClick={() => {
-              props.deleteHoliday(props.holiday.id);
+              Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  props.deleteHoliday(props.holiday.id);
+                }
+              });
             }}
           >
             <FontAwesomeIcon icon={faTrashAlt} />
@@ -159,6 +171,21 @@ export default class HolidayList extends Component {
       })
       .then((response) => {
         console.log(response.data);
+        if (response.data.success === false) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: response.data.message,
+          });
+        } else {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: response.data.message,
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        }
       });
 
     this.setState({
@@ -168,6 +195,14 @@ export default class HolidayList extends Component {
   }
 
   async updateHoliday(id, name, date) {
+    if(!name || name.length<5 || !date){
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Invalid data",
+      });
+      return;
+    }
     await axios
       .post("holiday/update/", {
         id: id,
@@ -262,6 +297,21 @@ export default class HolidayList extends Component {
         .post("holiday/add", holiday)
         .then((res) => {
           document.getElementById("holiday-report-form").reset();
+          if (res.data.success === false) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: res.data.message
+          });
+        } else {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: res.data.message,
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        }
           this.setState({
             res: res.data.message,
             holidayDate: d,

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "../utils/axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import Swal from "sweetalert2";
 export default class EventSubmission extends Component {
   constructor(props) {
     super(props);
@@ -152,6 +152,21 @@ export default class EventSubmission extends Component {
       })
 
       axios.post("event/submit", event).then((res) => {
+        if (res.data.success === false) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: res.data.message
+        });
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: res.data.message,
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      }
         document.getElementById("event-report-from").reset();
         this.setState({
           res: res.data.message,

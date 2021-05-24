@@ -11,7 +11,7 @@ import { paginate } from "../utils/paginate";
 import { findNearestExit } from "../utils/location";
 import { getSuburbInt, getKmPost } from "../utils/displayformat";
 import Loading from "./common/loading";
-
+import Swal from "sweetalert2";
 const Incident = (props) => (
   <tr>
     <td>
@@ -41,7 +41,19 @@ const Incident = (props) => (
       <button
         className="btn btn-sm btn-danger m-2"
         onClick={() => {
-          props.deleteIncident(props.incident.id);
+          Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              props.deleteIncident(props.incident.id);
+            }
+          });
         }}
       >
         Delete
@@ -221,6 +233,21 @@ export default class ValidateIncident extends Component {
       .then((response) => {
         console.log("id:", id);
         console.log(response.data);
+        if (response.data.success === false) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: response.data.message,
+          });
+        } else {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: response.data.message,
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        }
       });
 
     this.setState({

@@ -29,7 +29,8 @@ const Holiday = (props) => {
             className="form-control"
             value={props.edit_name}
             onChange={props.onChangeEditName}
-            minlength="4"
+            minlength="5"
+            maxlength="30"
           ></input>
         </td>
         <td>
@@ -392,6 +393,8 @@ export default class HolidayList extends Component {
                         className="form-control input-sm"
                         value={this.state.name}
                         onChange={this.onChangeName}
+                        minlength="5"
+                        maxlength="30"
                       />
                     </div>
                   </div>

@@ -27,7 +27,8 @@ const Police = (props) => {
             className="form-control"
             value={props.edit_name}
             onChange={props.onChangeName}
-            minlength="4"
+            minLength="5"
+            maxLength="30"
             pattern="[\W\w\s]+"
           ></input>
         </td>

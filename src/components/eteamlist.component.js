@@ -33,8 +33,8 @@ const ETeam = (props) => {
             className="form-control"
             value={props.edit_name}
             onChange={props.onChangeName}
-            minLength="4"
-            maxLength="20"
+            minLength="5"
+            maxLength="30"
           ></input>
         </td>
         <td>
@@ -42,6 +42,8 @@ const ETeam = (props) => {
             type="text"
             value={props.edit_contactNumber}
             onChange={props.onChangeContactNumber}
+            minLength="3"
+            maxLength="10"
           />
         </td>
         <td>{props.eteam.availability&&props.eteam.lat!=0 &&props.eteam.lng!=0? (suburb? suburb: "")+" ("+props.eteam.lat+","+props.eteam.lng+")" : "-"}</td>

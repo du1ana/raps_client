@@ -500,7 +500,7 @@ export default class AccidentList extends Component {
 
   getList = async () => {
     let res = await axios.get("accident/list");
-    this.setState({ accidentlist: res.data.data, updateFlag: false });
+    this.setState({ accidentlist: res.data.data.reverse(), updateFlag: false });
     console.log("state_set:");
     console.log(res.data.data);
   };
@@ -561,7 +561,7 @@ export default class AccidentList extends Component {
     operatedSpeed,
     vehicle_condition
   ) {
-    if(!accidentDate || !accidentTime || !driverAge || 17>driverAge || driverAge>76 || !licenseIssueDate || !vehicleYOM || !operatedSpeed ||  0>operatedSpeed || operatedSpeed>200 || !kmPost || 0>kmPost || kmPost>127){
+    if(!accidentDate || !accidentTime || !driverAge || 17>driverAge || driverAge>76 || !licenseIssueDate || !vehicleYOM ||  0>operatedSpeed || operatedSpeed>200 || 0>kmPost || kmPost>127){
       Swal.fire({
         icon: "error",
         title: "Oops...",

@@ -267,7 +267,7 @@ export default class EventList extends Component {
 
   getList = async () => {
     let res = await axios.get("event/list");
-    this.setState({ eventlist: res.data.data, updateFlag: false });
+    this.setState({ eventlist: res.data.data.reverse(), updateFlag: false });
     console.log("state_set:");
     console.log(res.data.data);
   };

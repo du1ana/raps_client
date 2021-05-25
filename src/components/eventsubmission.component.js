@@ -225,6 +225,7 @@ export default class EventSubmission extends Component {
                     selected={this.state.eventDate}
                     onChange={this.onChangeEventDate}
                     maxDate={new Date()}
+                    required="true"
                   />
                 </div>
               </div>
@@ -240,6 +241,7 @@ export default class EventSubmission extends Component {
                   className="form-control"
                   value={this.state.eventTime}
                   onChange={this.onChangeEventTime}
+                  required="true"
                 />
               </div>
             </div>
@@ -326,6 +328,7 @@ export default class EventSubmission extends Component {
                   onChange={this.onChangeKmPost}
                   min="0"
                   max="127"
+                  required="true"
                 />
               </div>
             </div>

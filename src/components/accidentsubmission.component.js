@@ -350,6 +350,7 @@ export default class AccidentSubmission extends Component {
                   className="form-control"
                   value={this.state.accidentTime}
                   onChange={this.onChangeAccidentTime}
+                  required="true"
                 />
               </div>
             </div>
@@ -365,6 +366,7 @@ export default class AccidentSubmission extends Component {
                   onChange={this.onChangeDriverAge}
                   min="17"
                   max="76"
+                  required="true"
                 />
               </div>
             </div>
@@ -436,6 +438,7 @@ export default class AccidentSubmission extends Component {
                   value={this.state.vehicleYOM}
                   onChange={this.onChangeVehicleYOM}
                   max={new Date().getFullYear()}
+                  required="true"
                 />
               </div>
             </div>
@@ -549,6 +552,7 @@ export default class AccidentSubmission extends Component {
                   onChange={this.onChangeKmPost}
                   min="0"
                   max="127"
+                  required="true"
                 />
               </div>
             </div>
@@ -565,6 +569,7 @@ export default class AccidentSubmission extends Component {
                   onChange={this.onChangeOperatedSpeed}
                   min="0"
                   max="200"
+                  required="true"
                 />
               </div>
             </div>

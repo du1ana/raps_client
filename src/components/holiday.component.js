@@ -39,6 +39,7 @@ const Holiday = (props) => {
             type="date"
             value={props.edit_date}
             onChange={props.onChangeEditDate}
+            required="true"
           />
         </td>
         <td>
@@ -378,6 +379,7 @@ export default class HolidayList extends Component {
                           className="form-control"
                           selected={this.state.holidayDate}
                           onChange={this.onChangeHolidayDate}
+                          required="true"
                         />
                       </div>
                     </div>
@@ -395,6 +397,7 @@ export default class HolidayList extends Component {
                         onChange={this.onChangeName}
                         minlength="5"
                         maxlength="30"
+                        required="true"
                       />
                     </div>
                   </div>

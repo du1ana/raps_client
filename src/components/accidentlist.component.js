@@ -33,6 +33,7 @@ const Accident = (props) => {
             value={props.edit_accidentDate}
             onChange={props.onChangeAccidentDate}
             max={new Date()}
+            required="true"
           />
         </td>
         <td>
@@ -42,6 +43,7 @@ const Accident = (props) => {
             className="form-control"
             value={props.edit_accidentTime}
             onChange={props.onChangeAccidentTime}
+            required="true"
           />
         </td>
         <td>
@@ -53,6 +55,7 @@ const Accident = (props) => {
             min="17"
             max="76"
             style={{ width: 60 }}
+            required="true"
           />
         </td>
         <td>
@@ -103,6 +106,7 @@ const Accident = (props) => {
             onChange={props.onChangeVehicleYOM}
             style={{ width: 80 }}
             max={new Date().getFullYear()}
+            required="true"
           />
         </td>
         <td>
@@ -111,6 +115,7 @@ const Accident = (props) => {
             type="date"
             value={props.edit_licenseIssueDate}
             onChange={props.onChangeLicenseIssueDate}
+            required="true"
           />
         </td>
         <td>
@@ -215,6 +220,7 @@ const Accident = (props) => {
             min="0"
             max="127"
             step=".1"
+            required="true"
           />
         </td>
         <td>
@@ -225,6 +231,7 @@ const Accident = (props) => {
             onChange={props.onChangeOperatedSpeed}
             style={{ width: 80 }}
             min="0"
+            required="true"
           />
         </td>
         <td>

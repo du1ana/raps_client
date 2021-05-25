@@ -219,6 +219,7 @@ export default class EventSubmission extends Component {
                     className="form-control"
                     selected={this.state.eventDate}
                     onChange={this.onChangeEventDate}
+                    maxDate={new Date()}
                   />
                 </div>
               </div>

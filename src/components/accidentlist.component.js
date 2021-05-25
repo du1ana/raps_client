@@ -32,6 +32,7 @@ const Accident = (props) => {
             type="date"
             value={props.edit_accidentDate}
             onChange={props.onChangeAccidentDate}
+            max={new Date()}
           />
         </td>
         <td>
@@ -101,6 +102,7 @@ const Accident = (props) => {
             value={props.edit_vehicleYOM}
             onChange={props.onChangeVehicleYOM}
             style={{ width: 80 }}
+            max={new Date().getFullYear()}
           />
         </td>
         <td>

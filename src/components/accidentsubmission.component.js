@@ -329,6 +329,7 @@ export default class AccidentSubmission extends Component {
                     className="form-control"
                     selected={this.state.accidentDate}
                     onChange={this.onChangeAccidentDate}
+                    maxDate={new Date()}
                   />
                 </div>
               </div>
@@ -429,6 +430,7 @@ export default class AccidentSubmission extends Component {
                   className="form-control"
                   value={this.state.vehicleYOM}
                   onChange={this.onChangeVehicleYOM}
+                  max={new Date().getFullYear()}
                 />
               </div>
             </div>
@@ -455,6 +457,7 @@ export default class AccidentSubmission extends Component {
                   className="form-control"
                   selected={this.state.licenseIssueDate}
                   onChange={this.onChangeLicenseIssueDate}
+                  maxDate={new Date()}
                 />
               </div>
             </div>

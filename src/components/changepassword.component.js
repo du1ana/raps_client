@@ -66,7 +66,8 @@ export default class ChangePassword extends Component {
       });
     }else{
         this.setState({
-          res:"Passwords mismatched. Please re-check."
+          res:"Passwords mismatched. Please re-check.",
+          isProcessing: false
         })
     }
 

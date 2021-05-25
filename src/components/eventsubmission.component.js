@@ -121,6 +121,11 @@ export default class EventSubmission extends Component {
     const d = new Date();
 
     if (!(this.state.eventDate instanceof Date)) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Validation Error: Date is invalid"
+      });
       this.setState({
         res: "Validation Error: Date is invalid",
         eventDate: d,

@@ -200,6 +200,11 @@ export default class AccidentSubmission extends Component {
     const d = new Date();
 
     if (!(this.state.accidentDate instanceof Date)) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Validation Error: Date is invalid"
+      });
       this.setState({
         res: "Validation Error: Date is invalid",
         accidentDate: d,
